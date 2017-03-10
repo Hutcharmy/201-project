@@ -1,0 +1,9 @@
+import javax.swing.JFrame;
+
+public class AboutMenu extends JFrame {
+	AboutMenu(){
+		this.setVisible(true);
+		this.setTitle("About");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}

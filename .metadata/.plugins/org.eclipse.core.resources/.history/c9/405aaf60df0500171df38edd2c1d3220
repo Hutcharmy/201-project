@@ -1,0 +1,14 @@
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+public class ScorePanel extends JPanel {
+	public ScorePanel(){
+		JLabel backgroundImage=new JLabel("");
+		backgroundImage.setVerticalAlignment(SwingConstants.TOP);
+		backgroundImage.setIcon(new ImageIcon("Score menu (1).png"));
+		backgroundImage.setBounds(0, 0, 825, 850);
+		this.add(backgroundImage);
+	}
+}

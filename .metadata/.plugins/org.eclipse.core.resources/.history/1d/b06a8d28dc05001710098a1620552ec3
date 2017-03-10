@@ -1,0 +1,76 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Canvas;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+
+public class MainMenu extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainMenu frame = new MainMenu();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public MainMenu() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 825, 850);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.GRAY);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel backgroundImage = new JLabel("");
+		backgroundImage.setVerticalAlignment(SwingConstants.TOP);
+		backgroundImage.setIcon(new ImageIcon("Main Menu Mock-up 1.png"));
+		backgroundImage.setBounds(0, 0, 825, 850);
+		contentPane.add(backgroundImage);
+		
+		JButton playButton = new JButton("");
+		playButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("The button lives!");
+			}
+		});
+		playButton.setOpaque(false);
+		playButton.setBounds(290, 334, 225, 99);
+		contentPane.add(playButton);
+		
+		JButton exitButton = new JButton("");
+		exitButton.setBounds(301, 642, 200, 77);
+		exitButton.setOpaque(false);
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		contentPane.add(exitButton);
+	}
+}
