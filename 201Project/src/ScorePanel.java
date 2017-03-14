@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -6,27 +7,36 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class ScorePanel extends JPanel {
-	public ScorePanel(){
+	private MainFrame frame;
+	public ScorePanel(MainFrame frame){
+		setBackground(Color.GRAY);
+		setBorder(new EmptyBorder(5, 5, 5, 5));
+		setLayout(null);
+		this.frame=frame;
 		JLabel backgroundImage=new JLabel("");
 		backgroundImage.setVerticalAlignment(SwingConstants.TOP);
 		backgroundImage.setIcon(new ImageIcon("Score menu (1).jpg"));
 		backgroundImage.setBounds(0, 0, 825, 850);
 		this.add(backgroundImage);
-		this.setVisible(true);
+		
 		
 		JButton backButton=new JButton("");
-		backButton.setBounds(440,60,660,120);
+		backButton.setBounds(500,500,200,200);
 		backButton.setOpaque(false);
+		
+		System.out.println("We here");
 		backButton.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				frame.changeContentPane(new MainJPanel(frame));
+				System.out.println("Shitty");
 			}
 		});
-		
+		this.add(backButton);
+		this.setVisible(true);
+
 	}
 }

@@ -1,0 +1,20 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class MainFrame extends JFrame {
+	private JPanel contentPane;
+	private JPanel scoresPanel, aboutMenuPanel, playPanel, mainJPanel;
+	public	MainFrame() {
+		scoresPanel=new ScorePanel();
+		aboutMenuPanel=new AboutMenu();
+		mainJPanel=new MainJPanel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setContentPane(mainJPanel);
+		setBounds(100, 100, 825, 850);
+		this.setResizable(false);
+		
+	}
+	public void changeContentPane(JPanel newPanel){
+		this.setContentPane(newPanel);
+	}
+}

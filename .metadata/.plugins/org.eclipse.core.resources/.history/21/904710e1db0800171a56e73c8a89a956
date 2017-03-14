@@ -1,0 +1,30 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class MainFrame extends JFrame {
+	public JPanel contentPane;
+	public JPanel scoresPanel, aboutMenuPanel, playPanel, mainJPanel;
+	public	MainFrame() {
+		scoresPanel=new ScorePanel(this);
+		aboutMenuPanel=new AboutMenu(this);
+		mainJPanel=new MainJPanel(this);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setContentPane(mainJPanel);
+		setBounds(100, 100, 825, 850);
+		this.setResizable(false);
+		
+	}
+	public void changeContentPane(JPanel newPanel, JPanel oldPanel){
+		if (newPanel instanceof MainJPanel){
+			newPanel=mainJPanel;
+		}
+		else if (newPanel instanceof ScorePanel){
+			newPanel=scoresPanel;
+		}
+		this.removeAll();
+		//this.remove(oldPanel);
+		this.add(newPanel);
+		this.setContentPane(newPanel);
+		this.repaint();
+	}
+}

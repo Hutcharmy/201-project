@@ -1,0 +1,25 @@
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+public class MainFrame extends JFrame {
+	private JPanel contentPane;
+	private JPanel scoresPanel, aboutMenuPanel, playPanel, MainJPanel;
+	public	MainFrame() {
+		scoresPanel=new ScorePanel();
+		aboutMenuPanel=new AboutMenu();
+		MainJPanel=new MainJPanel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 825, 850);
+		this.setResizable(false);
+		
+	}
+}

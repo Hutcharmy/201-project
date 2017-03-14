@@ -15,8 +15,8 @@ public class MainPage extends JPanel {
 	private JPanel contentPane;
 	private JPanel scoresPanel, aboutMenuPanel, playPanel;
 		MainPage(){
-		scoresPanel=new ScorePanel();
-		aboutMenuPanel=new AboutMenu();
+		//scoresPanel=new ScorePanel();
+		//aboutMenuPanel=new AboutMenu();
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,7 +54,7 @@ public class MainPage extends JPanel {
 		aboutButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg){
 				System.out.println("shit");
-				contentPane=new AboutMenu();
+				//contentPane=new AboutMenu();
 			}
 		});
 		aboutButton.setBounds(250,540,300,80);
