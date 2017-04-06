@@ -18,7 +18,7 @@ public class AILogic {
 			throw new ConnectFourException("Invalid difficulty");
 		}
 	}
-	public void makeAMove(Board grid){
-		return;
+	public Piece makeAMove(Board grid){
+		return null;
 	}
 }

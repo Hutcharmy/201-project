@@ -2,9 +2,11 @@
 public class Board {
 	Piece[][] board;
 	int[] bottomRow;
+	String win;
 	public Board(){
 		board=new Piece[6][7];
 		bottomRow=new int[7];
+		win="None";
 	}
 	/**
 	 * Adds a piece to the board if the placement is legal, returns a boolean to tell if the piece was placed succesfully
@@ -13,7 +15,7 @@ public class Board {
 	 */
 	public boolean addPiece(Piece p){
 		boolean placed=false;
-		if(bottomRow[p.getY()]<6){
+		if(p!=null && bottomRow[p.getY()]<6){
 			int x=p.getX();
 			int y=p.getY();
 			board[x][y]=p;
@@ -27,5 +29,11 @@ public class Board {
 	}
 	public int[] getBottomRows(){
 		return bottomRow;
+	}
+	public void setWin(String win){
+		this.win=win;
+	}
+	public String setWin(){
+		return win;
 	}
 }
