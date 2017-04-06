@@ -5,6 +5,7 @@ public class MainFrame extends JFrame {
 	public JPanel contentPane;
 	public JPanel scoresPanel, aboutMenuPanel, playPanel, mainJPanel;
 	public	MainFrame() {
+		playPanel=new PlayPanel(this);
 		scoresPanel=new ScorePanel(this);
 		aboutMenuPanel=new AboutMenu(this);
 		mainJPanel=new MainJPanel(this);
@@ -23,6 +24,10 @@ public class MainFrame extends JFrame {
 		else if (newPanel instanceof ScorePanel){
 			newPanel=new ScorePanel(this);
 			System.out.println("Try");
+		}
+		else if(newPanel instanceof PlayPanel){
+			newPanel=new PlayPanel(this);
+			System.out.println("playtime's over kiddo");
 		}
 		System.out.println("Ths ran");
 		this.getContentPane().removeAll();

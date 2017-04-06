@@ -9,22 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class ScorePanel extends JPanel {
+public class PlayPanel extends JPanel {
 	private MainFrame frame;
-	public ScorePanel(MainFrame frame){
+	public PlayPanel(MainFrame frame){
 		setBackground(Color.GRAY);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
 		this.frame=frame;
 		JLabel backgroundImage=new JLabel("");
 		backgroundImage.setVerticalAlignment(SwingConstants.TOP);
-		backgroundImage.setIcon(new ImageIcon("Score menu (1).jpg"));
+		backgroundImage.setIcon(new ImageIcon("Game Slide 1.jpg"));
 		backgroundImage.setBounds(0, 0, 825, 850);
 		this.add(backgroundImage);
-		
-		
 		JButton backButton=new JButton("");
-		backButton.setBounds(453,673,208,73);
+		backButton.setBounds(300,720,200,61);
 		backButton.setOpaque(false);
 		
 		System.out.println("We here");
@@ -37,6 +35,6 @@ public class ScorePanel extends JPanel {
 		});
 		this.add(backButton);
 		this.setVisible(true);
-
 	}
+		
 }
