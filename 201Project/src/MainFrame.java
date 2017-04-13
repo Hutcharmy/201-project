@@ -29,6 +29,10 @@ public class MainFrame extends JFrame {
 			newPanel=new PlayPanel(this);
 			System.out.println("playtime's over kiddo");
 		}
+		else if(newPanel instanceof AboutMenu){
+			newPanel=new AboutMenu(this);
+			System.out.println("aboot");
+		}
 		System.out.println("Ths ran");
 		this.getContentPane().removeAll();
 		this.setContentPane(newPanel);

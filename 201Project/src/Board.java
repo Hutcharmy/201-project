@@ -3,6 +3,7 @@ public class Board {
 	Piece[][] board;
 	int[] bottomRow;
 	String win;
+	Piece lastPlayerPiece, lastAIPiece;
 	public Board(){
 		board=new Piece[6][7];
 		bottomRow=new int[7];
@@ -20,6 +21,12 @@ public class Board {
 			int y=p.getY();
 			board[x][y]=p;
 			bottomRow[y]++;
+			if(p.getType()==PieceType.PLAYER){
+				this.lastPlayerPiece=p;
+			}
+			else{
+				this.lastAIPiece=p;
+			}
 			placed=true;
 		}
 		return placed;

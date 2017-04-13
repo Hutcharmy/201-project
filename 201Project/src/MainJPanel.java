@@ -52,7 +52,7 @@ public class MainJPanel extends JPanel {
 	aboutButton.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent arg){
 			System.out.println("shit");
-			//contentPane=new AboutMenu();
+			frame.changeContentPane(frame.aboutMenuPanel);
 		}
 	});
 	aboutButton.setBounds(250,540,300,80);
