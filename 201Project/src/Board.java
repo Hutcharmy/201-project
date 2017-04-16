@@ -40,7 +40,7 @@ public class Board {
 	public void setWin(String win){
 		this.win=win;
 	}
-	public String setWin(){
+	public String getWin(){
 		return win;
 	}
 	public Piece[][] getBoard(){
