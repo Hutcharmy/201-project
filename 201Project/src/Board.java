@@ -1,9 +1,9 @@
 
 public class Board {
-	Piece[][] board;
-	int[] bottomRow;
-	String win;
-	Piece lastPlayerPiece, lastAIPiece;
+	private Piece[][] board;
+	private int[] bottomRow;
+	private String win;
+	private Piece lastPlayerPiece, lastAIPiece;
 	public Board(){
 		board=new Piece[6][7];
 		bottomRow=new int[7];
@@ -42,5 +42,8 @@ public class Board {
 	}
 	public String setWin(){
 		return win;
+	}
+	public Piece[][] getBoard(){
+		return board;
 	}
 }
