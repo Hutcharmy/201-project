@@ -37,6 +37,12 @@ public class Board {
 	public int[] getBottomRows(){
 		return bottomRow;
 	}
+	public Piece getLastPlayerPiece(){
+		return lastPlayerPiece;
+	}
+	public Piece getLastAIPiece(){
+		return lastAIPiece;
+	}
 	public void setWin(String win){
 		this.win=win;
 	}

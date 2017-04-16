@@ -66,7 +66,7 @@ public class Score {
 			return;
 		}
 		
-		for(int i = 0; i < NUM_OF_DIFFICULTY * 2; i++){
+		for(int i = 0; i < NUM_OF_DIFFICULTY; i++){
 			if(difficulty == i && isWin){
 				tempScore = readFromFile(counter);
 				// Check if score has reached MAX_SCORE
@@ -103,7 +103,7 @@ public class Score {
 			return toReturn;
 		}
 		
-		for(int i = 0; i < NUM_OF_DIFFICULTY * 2; i++){
+		for(int i = 0; i < NUM_OF_DIFFICULTY; i++){
 			if(difficulty == i && isWin){
 				toReturn = Integer.parseInt(readFromFile(counter));
 			}
