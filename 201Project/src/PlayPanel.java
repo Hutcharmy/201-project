@@ -49,7 +49,6 @@ public class PlayPanel extends JPanel {
 				//need to add piece to board, this is next step
 			}
 		});
-		System.out.println(firstColButton.getName()+" Is created");
 		JButton secondColButton=new JButton("");
 		secondColButton.setBounds(150,115,100,600);
 		secondColButton.setOpaque(false);
