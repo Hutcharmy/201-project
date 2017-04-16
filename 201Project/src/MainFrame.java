@@ -9,6 +9,7 @@ public class MainFrame extends JFrame {
 		scoresPanel=new ScorePanel(this);
 		aboutMenuPanel=new AboutMenu(this);
 		mainJPanel=new MainJPanel(this);
+		Score.checkSaveFileExists();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(mainJPanel);
 		setBounds(100, 100, 825, 850);
