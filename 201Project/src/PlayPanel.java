@@ -54,7 +54,9 @@ public class PlayPanel extends JPanel {
 		ActionListener colCheck=new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				JButton source=(JButton) e.getSource();
+				System.out.println("source "+source.getText());
 				bo=logic.getMove(bo, Integer.parseInt(source.getText()));
+				
 				panel.addPiece(bo.getLastPlayerPiece());
 				String won=bo.getWin();
 				if(won.equals("Player Win")){

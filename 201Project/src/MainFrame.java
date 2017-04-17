@@ -5,11 +5,12 @@ public class MainFrame extends JFrame {
 	public JPanel contentPane;
 	public JPanel scoresPanel, aboutMenuPanel, playPanel, mainJPanel;
 	public	MainFrame() {
+		Score.checkSaveFileExists();
 		playPanel=new PlayPanel(this);
 		scoresPanel=new ScorePanel(this);
 		aboutMenuPanel=new AboutMenu(this);
 		mainJPanel=new MainJPanel(this);
-		Score.checkSaveFileExists();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(mainJPanel);
 		setBounds(100, 100, 825, 850);

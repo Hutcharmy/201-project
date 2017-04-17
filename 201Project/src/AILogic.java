@@ -31,15 +31,15 @@ public class AILogic {
 		for (int x = 0; x < 6; x++) {
 			if (allPieces[x]!=null &&
 					allPieces[x].length == 6) {
-				possX[x] = -1;
+				possX[x] = -25;
 			}
 		}
 		Piece[] possibleMoves = new Piece[7];
+		System.out.println(Arrays.toString(possX));
 		for (int x = 0; x <7; x++) {
 			if (possX[x] != -1) {
 				possibleMoves[x] = new Piece(x, possX[x], false);
 			} else {
-				System.out.println("null");
 				possibleMoves[x] = null;
 			}
 		}
@@ -80,6 +80,9 @@ public class AILogic {
 				p = bestMoves[0];
 			}
 		}
+		//update bottom row of board
+		grid.updateBottomRow();
+		System.out.println("This is the piece being returned "+p);
 		return p;
 	}
 
@@ -87,7 +90,6 @@ public class AILogic {
 		Piece[] bestMoves = new Piece[possibleMoves.length];
 		int[] pres = new int[bestMoves.length];
 		for (int x = 0; x < bestMoves.length; x++) {
-			System.out.println(possibleMoves[x]);
 			if (possibleWin(possibleMoves[x], wholeBoard)) {
 				pres[x] = 1;
 			} else if (possibleBlock(possibleMoves[x], wholeBoard)) {
@@ -167,7 +169,8 @@ public class AILogic {
 			lengths[1] = temp;
 			broke = false;
 			for (int y = p.getX(); y <= 5 && !broke; y++) {
-				if (wholeBoard[p.getY()][y]!=null&&wholeBoard[p.getX()][y].isPlayerPiece()) {
+				if (wholeBoard[p.getY()][y]!=null&&
+						wholeBoard[p.getY()][y].isPlayerPiece()) {
 					temp++;
 				} else {
 					broke = true;
@@ -186,8 +189,13 @@ public class AILogic {
 			broke = false;
 
 		} else {
+			if (p==null){
+				Error e=new Error();
+				e.printStackTrace();
+			}
 			for (int x = p.getY(); x >= 0 && !broke; x--) {
-				if (wholeBoard[x][p.getX()]!=null&&!wholeBoard[x][p.getX()].isPlayerPiece()) {
+				if (wholeBoard[x][p.getX()]!=null&&
+						!wholeBoard[x][p.getX()].isPlayerPiece()) {
 					temp++;
 				} else {
 					broke = true;

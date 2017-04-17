@@ -19,6 +19,8 @@ public class Board {
 		if(p!=null && bottomRow[p.getY()]<6){
 			int x=p.getX();
 			int y=p.getY();
+			System.out.println("this is y "+y);
+			System.out.println("this is x "+x);
 			board[y][x]=p;
 			bottomRow[x]++;
 			if(p.getType()==PieceType.PLAYER){
@@ -54,5 +56,18 @@ public class Board {
 	}
 	public void setBottomRow(int[] newBottomRow){
 		newBottomRow=bottomRow;
+	}
+	public void updateBottomRow(){
+		for (int x=0; x<6; x++){
+			for (int y=6; y>=0; y--){
+				if (board[x][y]!=null){
+					bottomRow[y]=x;
+				}
+				System.out.println(bottomRow[y]+"bot y");
+				if (bottomRow[y]<0){
+					bottomRow[y]=0;
+				}
+			}
+		}
 	}
 }

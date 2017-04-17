@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class GameLogic {
 	private Board b;
@@ -19,7 +20,9 @@ public class GameLogic {
 	public Board getMove(Board bo, int col){
 		this.b=bo;
 		Piece p=null;
+		b.updateBottomRow();
 		int[] bottom=b.getBottomRows();
+		System.out.println(Arrays.toString(bottom));
 		if(bottom[col]<6){ 
 			p=new Piece(bottom[col], col, true);
 		}
@@ -78,7 +81,7 @@ public class GameLogic {
 						return "None";
 					}
 					Piece nextPiece=b.getPiece(nextX, nextY);
-					if(nextPiece.getType()==p.getType()){
+					if(nextPiece!=null && nextPiece.getType()==p.getType()){
 						currentWin=checkWinCondition(nextPiece, 2, currentMove);
 						if(currentWin=="winner"||currentWin=="draw"){
 							return currentWin;
@@ -103,6 +106,7 @@ public class GameLogic {
 				return "None";
 			}
 			Piece nextPiece=b.getPiece(nextX, nextY);
+			System.out.println(nextPiece+" next piece");
 			if(nextPiece.getType()==type){
 				currentWin=checkWinCondition(nextPiece, streak+1, direction);
 				if(currentWin=="winner"||currentWin=="draw"){
