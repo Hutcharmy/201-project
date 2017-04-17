@@ -24,7 +24,7 @@ public class GameLogic {
 		int[] bottom=b.getBottomRows();
 		System.out.println(Arrays.toString(bottom));
 		if(bottom[col]<6){ 
-			p=new Piece(bottom[col], col, true);
+			p=new Piece(col, bottom[col], true);
 		}
 		int[] direction={0,0};
 		if(b.addPiece(p)){
@@ -68,7 +68,7 @@ public class GameLogic {
 		String currentWin="None";
 		if(streak==1){
 			int[] fullUp={6,6,6,6,6,6,6};
-			if(b.getBottomRows()==fullUp){
+			if(b.getBottomRows().equals(fullUp)){
 				return "draw";
 			}
 			else{
@@ -77,7 +77,7 @@ public class GameLogic {
 					int[] currentMove=moveConstants[i];
 					int nextX=p.getX()+currentMove[1];
 					int nextY=p.getY()+currentMove[0];
-					if(nextX<0||nextY<0||nextX>=6||nextY>=6){
+					if(nextX<0||nextY<0||nextX>=7||nextY>=6){
 						return "None";
 					}
 					Piece nextPiece=b.getPiece(nextX, nextY);
@@ -102,12 +102,12 @@ public class GameLogic {
 			int y=p.getY();
 			int nextX=x+direction[1];
 			int nextY=y+direction[0];
-			if(nextX<0||nextY<0||nextX>=6||nextY>=6){
+			if(nextX<0||nextY<0||nextX>=7||nextY>=6){
 				return "None";
 			}
 			Piece nextPiece=b.getPiece(nextX, nextY);
 			System.out.println(nextPiece+" next piece");
-			if(nextPiece.getType()==type){
+			if(nextPiece!=null && nextPiece.getType()==type){
 				currentWin=checkWinCondition(nextPiece, streak+1, direction);
 				if(currentWin=="winner"||currentWin=="draw"){
 					return currentWin;
@@ -115,6 +115,9 @@ public class GameLogic {
 				else{
 					return "None";
 				}
+			}
+			else{
+				return "None";
 			}
 		}
 		return "None";

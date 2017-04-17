@@ -29,6 +29,7 @@ public class Board {
 			else{
 				this.lastAIPiece=p;
 			}
+			this.updateBottomRow();
 			placed=true;
 		}
 		return placed;
@@ -61,9 +62,9 @@ public class Board {
 		for (int x=0; x<6; x++){
 			for (int y=6; y>=0; y--){
 				if (board[x][y]!=null){
-					bottomRow[y]=x;
+					bottomRow[y]=x+1;
+					System.out.println(bottomRow[y]+"bot y for "+y);
 				}
-				System.out.println(bottomRow[y]+"bot y");
 				if (bottomRow[y]<0){
 					bottomRow[y]=0;
 				}
