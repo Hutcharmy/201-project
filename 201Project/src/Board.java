@@ -19,8 +19,8 @@ public class Board {
 		if(p!=null && bottomRow[p.getY()]<6){
 			int x=p.getX();
 			int y=p.getY();
-			board[x][y]=p;
-			bottomRow[y]++;
+			board[y][x]=p;
+			bottomRow[x]++;
 			if(p.getType()==PieceType.PLAYER){
 				this.lastPlayerPiece=p;
 			}
@@ -32,7 +32,7 @@ public class Board {
 		return placed;
 	}
 	public Piece getPiece(int x, int y){
-		return board[x][y];
+		return board[y][x];
 	}
 	public int[] getBottomRows(){
 		return bottomRow;
@@ -51,5 +51,8 @@ public class Board {
 	}
 	public Piece[][] getBoard(){
 		return board;
+	}
+	public void setBottomRow(int[] newBottomRow){
+		newBottomRow=bottomRow;
 	}
 }
