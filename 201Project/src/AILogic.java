@@ -31,7 +31,7 @@ public class AILogic {
 		for (int x = 0; x < 6; x++) {
 			if (allPieces[x]!=null &&
 					allPieces[x].length == 6) {
-				possX[x] = -25;
+				possX[x] = -1;
 			}
 		}
 		Piece[] possibleMoves = new Piece[7];
@@ -47,7 +47,6 @@ public class AILogic {
 		for (int x=0; x<tempAr.length; x++){
 			tempAr[x]--;
 		}
-		grid.setBottomRow(tempAr);
 		Piece bestMoves[] = orderBestMoves(possibleMoves, allPieces);
 		if (diff == AIDifficulties.EASY) {
 			if (bestMoves.length > 1) {
@@ -103,8 +102,8 @@ public class AILogic {
 				pres[x] = 5;
 			}
 		}
-		for(int x=0; x<bestMoves.length; x++){
-			bestMoves[x]=new Piece(0,0,false);
+		for(int x=0; x<bestMoves.length; x++){//There's still an issue here, but it seems to be a logic error
+			bestMoves[x]=possibleMoves[x];
 			bestMoves[x].pres=pres[x];
 		}
 		Arrays.sort(bestMoves);
@@ -141,7 +140,7 @@ public class AILogic {
 
 	private int findMaxNieghbors(Piece p, Piece[][] wholeBoard, boolean isPlayer) {
 		// for blocks is player should be false
-		// for wins isplayer should be true
+		// for wins is player should be true
 		int[] lengths = new int[4];
 		int temp = 0;
 		boolean broke = false;
@@ -151,7 +150,7 @@ public class AILogic {
 			// check up
 			// check down
 			for (int x = p.getY(); x >= 0 && !broke; x--) {
-				if (wholeBoard[x][p.getX()]!=null&&wholeBoard[x][p.getX()].isPlayerPiece()) {
+				if (wholeBoard[x][p.getX()]!=null&&!wholeBoard[x][p.getX()].isPlayerPiece()) {
 					temp++;
 				} else {
 					broke = true;
@@ -159,50 +158,7 @@ public class AILogic {
 			}
 			lengths[0] = temp;
 			broke = false;
-			for (int x = p.getY(); x <= 6 && !broke; x++) {
-				if (wholeBoard[x][p.getX()]!=null&&wholeBoard[x][p.getX()].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
-				}
-			}
-			lengths[1] = temp;
-			broke = false;
-			for (int y = p.getX(); y <= 5 && !broke; y++) {
-				if (wholeBoard[p.getY()][y]!=null&&
-						wholeBoard[p.getY()][y].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
-				}
-			}
-			lengths[2] = temp;
-			broke = false;
-			for (int y = p.getX(); y >= 5 && !broke; y--) {
-				if (wholeBoard[p.getY()][y]!=null&&wholeBoard[p.getY()][y].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
-				}
-			}
-			lengths[3] = temp;
-			broke = false;
-
-		} else {
-			if (p==null){
-				Error e=new Error();
-				e.printStackTrace();
-			}
-			for (int x = p.getY(); x >= 0 && !broke; x--) {
-				if (wholeBoard[x][p.getX()]!=null&&
-						!wholeBoard[x][p.getX()].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
-				}
-			}
-			lengths[0] = temp;
-			broke = false;
+			temp=0;
 			for (int x = p.getY(); x <= 6 && !broke; x++) {
 				if (wholeBoard[x][p.getX()]!=null&&!wholeBoard[x][p.getX()].isPlayerPiece()) {
 					temp++;
@@ -212,8 +168,10 @@ public class AILogic {
 			}
 			lengths[1] = temp;
 			broke = false;
+			temp=0;
 			for (int y = p.getX(); y <= 5 && !broke; y++) {
-				if (wholeBoard[p.getY()][y]!=null&&!wholeBoard[p.getY()][y].isPlayerPiece()) {
+				if (wholeBoard[p.getY()][y]!=null&&
+						!wholeBoard[p.getY()][y].isPlayerPiece()) {
 					temp++;
 				} else {
 					broke = true;
@@ -221,7 +179,8 @@ public class AILogic {
 			}
 			lengths[2] = temp;
 			broke = false;
-			for (int y = p.getX(); y >= 6 && !broke; y--) {
+			temp=0;
+			for (int y = p.getX(); y >= 5 && !broke; y--) {
 				if (wholeBoard[p.getY()][y]!=null&&!wholeBoard[p.getY()][y].isPlayerPiece()) {
 					temp++;
 				} else {
@@ -230,10 +189,58 @@ public class AILogic {
 			}
 			lengths[3] = temp;
 			broke = false;
-
+			temp=0;
+		} else {
+			if (p==null){//why do you check here and not above?
+				Error e=new Error();
+				e.printStackTrace();
+			}
+			for (int x = p.getY(); x >= 0 && !broke; x--) {//Same issue as above, in reverse
+				if (wholeBoard[x][p.getX()]!=null&&
+						wholeBoard[x][p.getX()].isPlayerPiece()) {
+					temp++;
+				} else {
+					broke = true;
+				}
+			}
+			lengths[0] = temp;
+			broke = false;
+			temp=0;
+			for (int x = p.getY(); x <= 6 && !broke; x++) {
+				if (wholeBoard[x][p.getX()]!=null&&wholeBoard[x][p.getX()].isPlayerPiece()) {
+					temp++;
+				} else {
+					broke = true;
+				}
+			}
+			lengths[1] = temp;
+			broke = false;
+			temp=0;
+			for (int y = p.getX(); y <= 5 && !broke; y++) {
+				if (wholeBoard[p.getY()][y]!=null&&wholeBoard[p.getY()][y].isPlayerPiece()) {
+					temp++;
+				} else {
+					broke = true;
+				}
+			}
+			lengths[2] = temp;
+			broke = false;
+			temp=0;
+			for (int y = p.getX(); y >= 6 && !broke; y--) {
+				if (wholeBoard[p.getY()][y]!=null&&wholeBoard[p.getY()][y].isPlayerPiece()) {
+					temp++;
+				} else {
+					broke = true;
+				}
+			}
+			lengths[3] = temp;
+			broke = false;
+			temp=0;
 		}
 		int temps = -1;
-		for (int x = 0; x < lengths.length; x++) {
+		for (int x = 0; x < lengths.length; x++) {//Shouldn't up and down be added and left and right be added? What if piece is  
+												  //in between 2 different pieces of the same type, 2 neighbors, but your code 
+												  //would return 1. 
 			if (lengths[x] > temps) {
 				temps = lengths[x];
 			}

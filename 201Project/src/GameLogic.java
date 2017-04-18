@@ -29,7 +29,13 @@ public class GameLogic {
 		int[] direction={0,0};
 		if(b.addPiece(p)){
 			win=checkWinCondition(p, 1, direction);
-			if(win==-1){
+			if(win==4){
+				b.setWin("Player Win");
+			}
+			else if(win==-100){
+				b.setWin("Draw");
+			}
+			else{
 				boolean placed=false;
 				while(!placed){
 					p=currentAI.makeAMove(this.b);
@@ -41,16 +47,11 @@ public class GameLogic {
 				if(win==4){
 					b.setWin("AI Win");
 				}
-				else if(win==0){
+				else if(win==-100){
 					b.setWin("Draw");
 				}
 			}
-			else if(win==4){
-				b.setWin("Player Win");
-			}
-			else if(win==0){
-				b.setWin("Draw");
-			}
+			
 		}
 		return this.b;
 	}
@@ -69,51 +70,56 @@ public class GameLogic {
 		int currentWin;
 		if(streak==1){
 			currentWin=-1;
-			int[] fullUp={6,6,6,6,6,6,6};
-			if(b.getBottomRows().equals(fullUp)){
-				return 0;
+			boolean drawFlag=true;
+			Piece[][] currentBoard=b.getBoard();
+			for(int i=0;i<currentBoard.length;i++){
+				for(int j=0;j<currentBoard[0].length;j++){
+					if(b.getPiece(j,i)==null){
+						drawFlag=false;
+					}
+				}
 			}
-			else{
-				int[] currentMove={0,0};
-				int[][] moveConstants={{0,1},{0,-1},{1,1},{-1,-1},{1,-1},{-1,1},{-1,0}};
-				for(int i=0;i<4;i++){
-					currentMove=moveConstants[i*2];
+			if(drawFlag) return -100;
+			int[] currentMove={0,0};
+			int[][] moveConstants={{0,1},{0,-1},{1,1},{-1,-1},{1,-1},{-1,1},{-1,0}};
+			for(int i=0;i<4;i++){
+				currentMove=moveConstants[i*2];
+				
+				int nextX=p.getX()+currentMove[1];
+				int nextY=p.getY()+currentMove[0];
+				System.out.println("Moving to "+nextX+" , "+nextY);
+				if(!(nextX<0||nextY<0||nextX>=7||nextY>=6)){
+					Piece nextPiece=b.getPiece(nextX, nextY);
 					
-					int nextX=p.getX()+currentMove[1];
-					int nextY=p.getY()+currentMove[0];
+					if(nextPiece!=null && nextPiece.getType().equals(p.getType())){
+						currentWin=checkWinCondition(nextPiece, streak+1, currentMove);
+						if(currentWin==4){
+							return currentWin;
+						}
+					}
+				}
+				
+				if(i!=3){
+					System.out.println(currentWin);
+					currentMove=moveConstants[i*2+1];
+					
+					nextX=p.getX()+currentMove[1];
+					nextY=p.getY()+currentMove[0];
 					System.out.println("Moving to "+nextX+" , "+nextY);
 					if(!(nextX<0||nextY<0||nextX>=7||nextY>=6)){
 						Piece nextPiece=b.getPiece(nextX, nextY);
-						
 						if(nextPiece!=null && nextPiece.getType().equals(p.getType())){
-							currentWin=checkWinCondition(nextPiece, streak+1, currentMove);
-							if(currentWin==4||currentWin==0){
+							currentWin=checkWinCondition(nextPiece, currentWin+1, currentMove);
+							if(currentWin==4){
 								return currentWin;
 							}
 						}
 					}
 					
-					if(i!=3){
-						System.out.println(currentWin);
-						currentMove=moveConstants[i*2+1];
-						
-						nextX=p.getX()+currentMove[1];
-						nextY=p.getY()+currentMove[0];
-						System.out.println("Moving to "+nextX+" , "+nextY);
-						if(!(nextX<0||nextY<0||nextX>=7||nextY>=6)){
-							Piece nextPiece=b.getPiece(nextX, nextY);
-							if(nextPiece!=null && nextPiece.getType().equals(p.getType())){
-								currentWin=checkWinCondition(nextPiece, currentWin+1, currentMove);
-								if(currentWin==4||currentWin==0){
-									return currentWin;
-								}
-							}
-						}
-						
-					}
 				}
 			}
 		}
+		
 		else if(streak==4){
 			return streak;
 		}
@@ -141,7 +147,7 @@ public class GameLogic {
 			if(nextPiece!=null && nextPiece.getType().equals(type)){
 				System.out.println("We made it");
 				currentWin=checkWinCondition(nextPiece, streak+1, direction);
-				if(currentWin==4||currentWin==0){
+				if(currentWin==4){
 					return currentWin;
 				}
 				else{

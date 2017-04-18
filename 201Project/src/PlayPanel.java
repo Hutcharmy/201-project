@@ -75,7 +75,7 @@ public class PlayPanel extends JLayeredPane {
 				else{
 					panel.addPiece(bo.getLastAIPiece());
 					if(won.equals("AI Win")){
-						System.out.println("You Win!");
+						System.out.println("You Lose");
 						Score.incScore(AIDifficulty, false);
 					}
 					else if(won.equals("Draw")){
