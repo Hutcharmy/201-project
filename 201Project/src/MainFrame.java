@@ -1,9 +1,10 @@
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class MainFrame extends JFrame {
 	public JPanel contentPane;
-	public JPanel scoresPanel, aboutMenuPanel, playPanel, mainJPanel;
+	public JLayeredPane scoresPanel, aboutMenuPanel, playPanel, mainJPanel;
 	public	MainFrame() {
 		Score.checkSaveFileExists();
 		playPanel=new PlayPanel(this);
@@ -17,7 +18,7 @@ public class MainFrame extends JFrame {
 		this.setResizable(false);
 		
 	}
-	public void changeContentPane(JPanel newPanel){
+	public void changeContentPane(JLayeredPane newPanel){
 		System.out.println(newPanel instanceof MainJPanel);
 		if (newPanel instanceof MainJPanel){
 			newPanel=new MainJPanel(this);

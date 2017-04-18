@@ -6,11 +6,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class AboutMenu extends JPanel {
+public class AboutMenu extends JLayeredPane {
 	MainFrame frame;
 	AboutMenu(MainFrame frame){
 		setBackground(Color.GRAY);

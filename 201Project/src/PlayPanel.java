@@ -5,14 +5,16 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class PlayPanel extends JPanel {
+public class PlayPanel extends JLayeredPane {
 	private MainFrame frame;
 	private Board bo;
 	private AILogic AI;
+	private BoardPanel panel;
 	private int AIDifficulty, playerScore, AIScore;
 	private GameLogic logic;
 	public PlayPanel(MainFrame frame){
@@ -22,14 +24,14 @@ public class PlayPanel extends JPanel {
 		this.frame=frame;
 		JLabel backgroundImage=new JLabel("");
 		backgroundImage.setVerticalAlignment(SwingConstants.TOP);
-		backgroundImage.setIcon(new ImageIcon("Game Slide.jpg"));
+		backgroundImage.setIcon(new ImageIcon("Game Slide.png"));
 		backgroundImage.setBounds(0, 0, 825, 850);
-		this.add(backgroundImage);
+		this.add(backgroundImage, JLayeredPane.PALETTE_LAYER);
 		
-		BoardPanel panel=new BoardPanel();
+		panel=new BoardPanel();
 		panel.setLocation(50, 115);
 		panel.setColors("yellow");
-		this.add(panel);
+		this.add(panel, JLayeredPane.DEFAULT_LAYER);
 		
 		bo=new Board();
 		AIDifficulty=0;
@@ -41,6 +43,7 @@ public class PlayPanel extends JPanel {
 		JButton backButton=new JButton("");
 		backButton.setBounds(300,720,200,61);
 		backButton.setOpaque(false);
+		
 		
 		System.out.println("We here");
 		backButton.addActionListener(new ActionListener() {
@@ -57,6 +60,12 @@ public class PlayPanel extends JPanel {
 				System.out.println("source "+source.getText());
 				bo=logic.getMove(bo, Integer.parseInt(source.getText()));
 				
+				for(int j=5;j>=0;j--){
+					for(int i=0;i<7;i++){
+						System.out.print(bo.getPiece(i, j));
+					}
+					System.out.println("");
+				}
 				panel.addPiece(bo.getLastPlayerPiece());
 				String won=bo.getWin();
 				if(won.equals("Player Win")){
@@ -73,8 +82,7 @@ public class PlayPanel extends JPanel {
 						System.out.println("Draw");
 					}
 				}
-				panel.repaint();
-				repaint();
+				fixShit(panel);
 			}
 		};
 		
@@ -129,6 +137,14 @@ public class PlayPanel extends JPanel {
 		this.add(sixthColButton);
 		this.add(seventhColButton);
 		this.setVisible(true);
+	}
+	public void fixShit(BoardPanel panel){
+		this.panel.removeAll();
+		this.panel=panel;
+		this.panel.revalidate();
+		this.revalidate();
+		frame.repaint();
+		frame.setVisible(true);
 	}
 		
 }

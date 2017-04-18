@@ -5,11 +5,12 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class ScorePanel extends JPanel {
+public class ScorePanel extends JLayeredPane {
 	private MainFrame frame;
 	public ScorePanel(MainFrame frame){
 		setBackground(Color.GRAY);
