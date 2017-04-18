@@ -2,11 +2,11 @@ import java.util.Arrays;
 
 public class GameLogic {
 	private Board b;
-	private String win;
+	private int win;
 	private AILogic currentAI;
 	public GameLogic(AILogic a){
 		b=null;
-		win="None";
+		win=-1;
 		currentAI=a;
 	}
 	/**
@@ -29,7 +29,7 @@ public class GameLogic {
 		int[] direction={0,0};
 		if(b.addPiece(p)){
 			win=checkWinCondition(p, 1, direction);
-			if(win.equals("None")){
+			if(win==-1){
 				boolean placed=false;
 				while(!placed){
 					p=currentAI.makeAMove(this.b);
@@ -38,17 +38,17 @@ public class GameLogic {
 					}
 				}
 				win=checkWinCondition(p, 1, direction);
-				if(win.equals("winner")){
+				if(win==4){
 					b.setWin("AI Win");
 				}
-				else if(win.equals("draw")){
+				else if(win==0){
 					b.setWin("Draw");
 				}
 			}
-			else if(win.equals("winner")){
+			else if(win==4){
 				b.setWin("Player Win");
 			}
-			else if(win.equals("draw")){
+			else if(win==0){
 				b.setWin("Draw");
 			}
 		}
@@ -64,38 +64,66 @@ public class GameLogic {
 	 * @param direction the current direction moving, first time is {0,0}, after that is assigned by inner for loop
 	 * @return win condition string, either "None", "draw", or "winner"
 	 */
-	private String checkWinCondition(Piece p, int streak, int[] direction){
-		String currentWin="None";
+	private int checkWinCondition(Piece p, int streak, int[] direction){
+		System.out.println(streak);
+		int currentWin;
 		if(streak==1){
+			currentWin=-1;
 			int[] fullUp={6,6,6,6,6,6,6};
 			if(b.getBottomRows().equals(fullUp)){
-				return "draw";
+				return 0;
 			}
 			else{
-				int[][] moveConstants={{1,1},{1,-1},{0,1},{0,-1},{-1,1},{-1,0},{-1,-1}};
-				for(int i=0;i<moveConstants.length;i++){
-					int[] currentMove=moveConstants[i];
+				int[] currentMove={0,0};
+				int[][] moveConstants={{0,1},{0,-1},{1,1},{-1,-1},{1,-1},{-1,1},{-1,0}};
+				for(int i=0;i<4;i++){
+					currentMove=moveConstants[i*2];
+					
 					int nextX=p.getX()+currentMove[1];
 					int nextY=p.getY()+currentMove[0];
-					if(nextX<0||nextY<0||nextX>=7||nextY>=6){
-						return "None";
-					}
-					Piece nextPiece=b.getPiece(nextX, nextY);
-					if(nextPiece!=null && nextPiece.getType()==p.getType()){
-						currentWin=checkWinCondition(nextPiece, 2, currentMove);
-						if(currentWin=="winner"||currentWin=="draw"){
-							return currentWin;
+					System.out.println("Moving to "+nextX+" , "+nextY);
+					if(!(nextX<0||nextY<0||nextX>=7||nextY>=6)){
+						Piece nextPiece=b.getPiece(nextX, nextY);
+						
+						if(nextPiece!=null && nextPiece.getType().equals(p.getType())){
+							currentWin=checkWinCondition(nextPiece, streak+1, currentMove);
+							if(currentWin==4||currentWin==0){
+								return currentWin;
+							}
 						}
+					}
+					
+					if(i!=3){
+						System.out.println(currentWin);
+						currentMove=moveConstants[i*2+1];
+						
+						nextX=p.getX()+currentMove[1];
+						nextY=p.getY()+currentMove[0];
+						System.out.println("Moving to "+nextX+" , "+nextY);
+						if(!(nextX<0||nextY<0||nextX>=7||nextY>=6)){
+							Piece nextPiece=b.getPiece(nextX, nextY);
+							if(nextPiece!=null && nextPiece.getType().equals(p.getType())){
+								currentWin=checkWinCondition(nextPiece, currentWin+1, currentMove);
+								if(currentWin==4||currentWin==0){
+									return currentWin;
+								}
+							}
+						}
+						
 					}
 				}
 			}
 		}
 		else if(streak==4){
-			return "winner";
+			return streak;
 		}
 		else{
+			currentWin=streak;
+			System.out.println("We in here");
+			System.out.println(p);
 			if(p==null){
-				return "None";
+				System.out.println("Hwhat");
+				return streak-1;
 			}
 			PieceType type=p.getType();
 			int x=p.getX();
@@ -103,23 +131,28 @@ public class GameLogic {
 			int nextX=x+direction[1];
 			int nextY=y+direction[0];
 			if(nextX<0||nextY<0||nextX>=7||nextY>=6){
-				return "None";
+				System.out.println("Hwhat the Sequel");
+				return streak;
 			}
 			Piece nextPiece=b.getPiece(nextX, nextY);
 			System.out.println(nextPiece+" next piece");
-			if(nextPiece!=null && nextPiece.getType()==type){
+			if(nextPiece!=null) System.out.println(nextPiece.getType());
+			System.out.println(type);
+			if(nextPiece!=null && nextPiece.getType().equals(type)){
+				System.out.println("We made it");
 				currentWin=checkWinCondition(nextPiece, streak+1, direction);
-				if(currentWin=="winner"||currentWin=="draw"){
+				if(currentWin==4||currentWin==0){
 					return currentWin;
 				}
 				else{
-					return "None";
+					System.out.println(currentWin);
+					return currentWin;
 				}
 			}
 			else{
-				return "None";
+				return streak;
 			}
 		}
-		return "None";
+		return streak;
 	}
 }

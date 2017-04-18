@@ -29,6 +29,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 	public void addPiece(Piece p){
+		if(p==null){
+			return;
+		}
 		int x=p.getX();
 		int y=p.getY();
 		JLabel currentLabel=pieces[y][x];
