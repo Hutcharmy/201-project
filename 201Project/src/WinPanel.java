@@ -9,11 +9,22 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
+/**
+ * Displays result of game, stored in EndgameFrame
+ * @author nick
+ *
+ */
 public class WinPanel extends JLayeredPane {
 	MainFrame frame;
 	EndgameFrame top;
 	private int playerScore, AIScore;
+	/**
+	 * Builds the panel
+	 * @param win the win condition that initiated the panel
+	 * 1 is user win, 0 is draw, -1 is AI win
+	 * @param frame1 the frame this panel is stored in
+	 * @param frame2 the main frame of the program
+	 */
 	public WinPanel(int win, EndgameFrame frame1, MainFrame frame2){
 		top=frame1;
 		this.frame=frame2;
@@ -55,7 +66,7 @@ public class WinPanel extends JLayeredPane {
 		menuButton.setOpaque(false);
 		menuButton.setBounds(255, 420, 230, 60);
 		add(menuButton);
-		
+		//Prints scores
 		playerScore=Score.getScore(frame.getAIDifficulty(), true);
 		AIScore=Score.getScore(frame.getAIDifficulty(), false);
 		
@@ -63,7 +74,6 @@ public class WinPanel extends JLayeredPane {
 		printPlayerScore.setBounds(100, 240, 75, 75);
 		printPlayerScore.setFont(new Font("Serif", Font.BOLD, 70));
 		printPlayerScore.setForeground(Color.BLACK);
-		//printPlayerScore.setOpaque(true);
 		this.add(printPlayerScore, JLayeredPane.DRAG_LAYER);
 		
 		JLabel printAIScore = new JLabel(Integer.toString(AIScore));

@@ -191,11 +191,11 @@ public class AILogic {
 			broke = false;
 			temp=0;
 		} else {
-			if (p==null){//why do you check here and not above?
+			if (p==null){
 				Error e=new Error();
 				e.printStackTrace();
 			}
-			for (int x = p.getY(); x >= 0 && !broke; x--) {//Same issue as above, in reverse
+			for (int x = p.getY(); x >= 0 && !broke; x--) {
 				if (wholeBoard[x][p.getX()]!=null&&
 						wholeBoard[x][p.getX()].isPlayerPiece()) {
 					temp++;

@@ -15,20 +15,24 @@ public class Board {
 	 * @return true if piece is placed, false if not
 	 */
 	public boolean addPiece(Piece p){
+		//uses boolean return to make sure placement was valid, should be but I want to be sure
 		boolean placed=false;
 		if(p!=null && bottomRow[p.getY()]<6){
+			//Get desired position of piece
 			int x=p.getX();
 			int y=p.getY();
 			System.out.println("this is y "+y);
 			System.out.println("this is x "+x);
-			board[y][x]=p;
-			bottomRow[x]++;
+			board[y][x]=p;//Adds piece to board
+			bottomRow[x]++;//Adds to bottom row tracker
+			//Sets trackers for last piece added for player and AI for purposes of adding graphics efficiently
 			if(p.getType()==PieceType.PLAYER){
 				this.lastPlayerPiece=p;
 			}
 			else{
 				this.lastAIPiece=p;
 			}
+			//Updates bottom row to make sure no issues
 			this.updateBottomRow();
 			placed=true;
 		}
@@ -58,6 +62,9 @@ public class Board {
 	public void setBottomRow(int[] newBottomRow){
 		newBottomRow=bottomRow;
 	}
+	/**
+	 * Checks each line for lowermost position that can be placed
+	 */
 	public void updateBottomRow(){
 		for (int x=0; x<6; x++){
 			for (int y=6; y>=0; y--){

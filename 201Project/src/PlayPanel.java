@@ -18,11 +18,18 @@ public class PlayPanel extends JLayeredPane {
 	private BoardPanel panel;
 	private int AIDifficulty, playerScore, AIScore;
 	private GameLogic logic;
+	private boolean gameOver;
+	/**
+	 * Essentially handles all game graphics and routes functuality
+	 * @param frame the frame this panel is stored in
+	 */
 	public PlayPanel(MainFrame frame){
+		//setup of frame
 		setBackground(Color.GRAY);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
 		this.frame=frame;
+		//Sets background to our main game slide, places on 2nd layer to allow for pieces behind it
 		JLabel backgroundImage=new JLabel("");
 		backgroundImage.setVerticalAlignment(SwingConstants.TOP);
 		backgroundImage.setIcon(new ImageIcon("Game Slide.png"));
@@ -30,9 +37,10 @@ public class PlayPanel extends JLayeredPane {
 		this.add(backgroundImage, JLayeredPane.PALETTE_LAYER);
 		
 		
-		
+		//Creates board of pieces, places on lowest level so background obscures edges of square graphics
 		panel=new BoardPanel(this);
 		panel.setLocation(50, 115);
+		//set colors of pieces to user choice
 		if(frame.isRed()){
 			panel.setColors("red");
 		}
@@ -41,14 +49,14 @@ public class PlayPanel extends JLayeredPane {
 		}
 		
 		this.add(panel, JLayeredPane.DEFAULT_LAYER);
-		
+		//Basic definitions
 		bo=new Board();
 		AIDifficulty=frame.getAIDifficulty();
 		AI=new AILogic(AIDifficulty);
 		logic= new GameLogic(AI);
 		playerScore=Score.getScore(AIDifficulty, true);
 		AIScore=Score.getScore(AIDifficulty, false);
-		
+		//Prints scores for current difficulty
 		JLabel printPlayerScore = new JLabel(Integer.toString(playerScore));
 		printPlayerScore.setBounds(308, 16, 75, 75);
 		printPlayerScore.setFont(new Font("Serif", Font.BOLD, 70));
@@ -75,11 +83,15 @@ public class PlayPanel extends JLayeredPane {
 				System.out.println("Shitty");
 			}
 		});
-		
+		//Action listener for pieces
 		ActionListener colCheck=new ActionListener(){
+			/** 
+			 * Calls game logic to place piece for user and AI, then gets results and sees if a win was achieved 
+			 * Places all pieces generated during event, then calls endgameframe if required
+			 */
 			public void actionPerformed(ActionEvent e){
+				if(gameOver) return;
 				JButton source=(JButton) e.getSource();
-				System.out.println("source "+source.getText());
 				bo=logic.getMove(bo, Integer.parseInt(source.getText()));
 				
 				for(int j=5;j>=0;j--){
@@ -92,6 +104,7 @@ public class PlayPanel extends JLayeredPane {
 				String won=bo.getWin();
 				if(won.equals("Player Win")){
 					System.out.println("You Win!");
+					gameOver=true;
 					Score.incScore(AIDifficulty, true);
 					EndgameFrame frame3=new EndgameFrame(1,frame);
 					frame3.setVisible(true);
@@ -100,12 +113,14 @@ public class PlayPanel extends JLayeredPane {
 					panel.addPiece(bo.getLastAIPiece());
 					if(won.equals("AI Win")){
 						System.out.println("You Lose");
+						gameOver=true;
 						Score.incScore(AIDifficulty, false);
 						EndgameFrame frame3=new EndgameFrame(-1,frame);
 						frame3.setVisible(true);
 					}
 					else if(won.equals("Draw")){
 						System.out.println("Draw");
+						gameOver=true;
 						EndgameFrame frame3=new EndgameFrame(0,frame);
 						frame3.setVisible(true);
 					}
@@ -113,7 +128,7 @@ public class PlayPanel extends JLayeredPane {
 				
 			}
 		};
-		
+		//One button for each column
 		JButton firstColButton=new JButton("");
 		firstColButton.setBounds(50,115,100,600);
 		firstColButton.setText("0");
