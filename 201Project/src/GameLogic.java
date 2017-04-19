@@ -66,7 +66,7 @@ public class GameLogic {
 	 * @return win condition string, either "None", "draw", or "winner"
 	 */
 	private int checkWinCondition(Piece p, int streak, int[] direction){
-		System.out.println(streak);
+		System.out.println(streak +" is the streak");
 		int currentWin;
 		if(streak==1){
 			currentWin=-1;
@@ -80,9 +80,12 @@ public class GameLogic {
 				}
 			}
 			if(drawFlag) return -100;
+			System.out.println(p);
 			int[] currentMove={0,0};
 			int[][] moveConstants={{0,1},{0,-1},{1,1},{-1,-1},{1,-1},{-1,1},{-1,0}};
 			for(int i=0;i<4;i++){
+				streak=1;
+				currentWin=1;
 				currentMove=moveConstants[i*2];
 				
 				int nextX=p.getX()+currentMove[1];
@@ -100,7 +103,7 @@ public class GameLogic {
 				}
 				
 				if(i!=3){
-					System.out.println(currentWin);
+					System.out.println(currentWin+" after last move");
 					currentMove=moveConstants[i*2+1];
 					
 					nextX=p.getX()+currentMove[1];
@@ -159,6 +162,6 @@ public class GameLogic {
 				return streak;
 			}
 		}
-		return streak;
+		return streak-1;
 	}
 }

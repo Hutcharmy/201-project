@@ -29,6 +29,23 @@ public class PlayPanel extends JLayeredPane {
 		backgroundImage.setBounds(0, 0, 825, 850);
 		this.add(backgroundImage, JLayeredPane.PALETTE_LAYER);
 		
+		
+		
+		panel=new BoardPanel(this);
+		panel.setLocation(50, 115);
+		if(frame.isRed()){
+			panel.setColors("red");
+		}
+		else{
+			panel.setColors("yellow");
+		}
+		
+		this.add(panel, JLayeredPane.DEFAULT_LAYER);
+		
+		bo=new Board();
+		AIDifficulty=frame.getAIDifficulty();
+		AI=new AILogic(AIDifficulty);
+		logic= new GameLogic(AI);
 		playerScore=Score.getScore(AIDifficulty, true);
 		AIScore=Score.getScore(AIDifficulty, false);
 		
@@ -44,16 +61,6 @@ public class PlayPanel extends JLayeredPane {
 		printAIScore.setFont(new Font("Serif", Font.BOLD, 70));
 		printAIScore.setForeground(Color.BLACK);
 		this.add(printAIScore, JLayeredPane.DRAG_LAYER);
-		
-		panel=new BoardPanel(this);
-		panel.setLocation(50, 115);
-		panel.setColors("yellow");
-		this.add(panel, JLayeredPane.DEFAULT_LAYER);
-		
-		bo=new Board();
-		AIDifficulty=0;
-		AI=new AILogic(AIDifficulty);
-		logic= new GameLogic(AI);
 		
 		JButton backButton=new JButton("");
 		backButton.setBounds(300,720,200,61);
@@ -86,15 +93,21 @@ public class PlayPanel extends JLayeredPane {
 				if(won.equals("Player Win")){
 					System.out.println("You Win!");
 					Score.incScore(AIDifficulty, true);
+					EndgameFrame frame3=new EndgameFrame(1,frame);
+					frame3.setVisible(true);
 				}
 				else{
 					panel.addPiece(bo.getLastAIPiece());
 					if(won.equals("AI Win")){
 						System.out.println("You Lose");
 						Score.incScore(AIDifficulty, false);
+						EndgameFrame frame3=new EndgameFrame(-1,frame);
+						frame3.setVisible(true);
 					}
 					else if(won.equals("Draw")){
 						System.out.println("Draw");
+						EndgameFrame frame3=new EndgameFrame(0,frame);
+						frame3.setVisible(true);
 					}
 				}
 				

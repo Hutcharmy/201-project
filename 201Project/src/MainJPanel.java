@@ -29,7 +29,8 @@ public class MainJPanel extends JLayeredPane {
 	JButton playButton = new JButton("");
 	playButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			frame.changeContentPane(frame.playPanel);
+			SettingsFrame frame2=new SettingsFrame(frame);
+			frame2.setVisible(true);
 			System.out.println("The button lives!");
 		}
 	});
