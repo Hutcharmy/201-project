@@ -16,7 +16,6 @@ public class MainFrame extends JFrame {
 		setContentPane(mainJPanel);
 		setBounds(100, 100, 825, 850);
 		this.setResizable(false);
-		
 	}
 	public void changeContentPane(JLayeredPane newPanel){
 		System.out.println(newPanel instanceof MainJPanel);
@@ -36,7 +35,7 @@ public class MainFrame extends JFrame {
 			newPanel=new AboutMenu(this);
 			System.out.println("aboot");
 		}
-		System.out.println("Ths ran");
+		System.out.println("This ran");
 		this.getContentPane().removeAll();
 		this.setContentPane(newPanel);
 		newPanel.revalidate();

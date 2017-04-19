@@ -1,5 +1,8 @@
+import java.awt.GridLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -11,18 +14,25 @@ public class BoardPanel extends JPanel {
 	JLabel[][] pieces;
 	ImageIcon playerIcon;
 	ImageIcon aiIcon;
-	public BoardPanel() {
+	JLayeredPane topPanel;
+	public BoardPanel(JLayeredPane top) {
+		topPanel=top;
+		GridLayout laid=new GridLayout(6,7);
+		laid.setHgap(0);
+		laid.setVgap(0);
+		this.setLayout(laid);
+		
 		this.setSize(700, 600);
 		pieces=new JLabel[6][7];
 		for(int i=0;i<pieces.length;i++){
 			for(int j=0;j<pieces[0].length;j++){
 				JLabel currentLabel=new JLabel("");
-				currentLabel.setBounds((j*100)+50,(i*100)+50, 100, 100);
-				currentLabel.setIcon(new ImageIcon("WhiteBox.png"));
+				//currentLabel.setIcon(new ImageIcon("WhiteBox.png"));
+				currentLabel.setIcon(null);
 				pieces[i][j]=currentLabel;
 			}
 		}
-		for(int i=0;i<pieces.length;i++){
+		for(int i=pieces.length-1;i>=0;i--){
 			for(int j=0;j<pieces[0].length;j++){
 				add(pieces[i][j]);
 			}
@@ -34,20 +44,20 @@ public class BoardPanel extends JPanel {
 		}
 		int x=p.getX();
 		int y=p.getY();
-		JLabel currentLabel=pieces[y][x];
 		PieceType type=p.getType();
-		if(currentLabel.getIcon().equals(new ImageIcon("WhiteBox.png"))){
+		if(pieces[y][x].getIcon()==null){
 			if(type.equals(PieceType.PLAYER)){
-				currentLabel.setIcon(playerIcon);
+				pieces[y][x].setIcon(playerIcon);
+				pieces[y][x].setSize(90, 90);
 			}
 			else if(type.equals(PieceType.AI)){
-				currentLabel.setIcon(aiIcon);
+				pieces[y][x].setIcon(aiIcon);
+				pieces[y][x].setSize(90, 90);
 			}
 		}
-		currentLabel.setVisible(true);
-		pieces[y][x]=currentLabel;
-		this.repaint();
-		this.setVisible(true);
+		
+		
+		
 	}
 	public void setColors(String selection){
 		if(selection.equals("yellow")){
@@ -59,5 +69,5 @@ public class BoardPanel extends JPanel {
 			aiIcon=new ImageIcon("YellowBox.png");
 		}
 	}
-
+	
 }

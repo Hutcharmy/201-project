@@ -28,7 +28,7 @@ public class PlayPanel extends JLayeredPane {
 		backgroundImage.setBounds(0, 0, 825, 850);
 		this.add(backgroundImage, JLayeredPane.PALETTE_LAYER);
 		
-		panel=new BoardPanel();
+		panel=new BoardPanel(this);
 		panel.setLocation(50, 115);
 		panel.setColors("yellow");
 		this.add(panel, JLayeredPane.DEFAULT_LAYER);
@@ -82,7 +82,7 @@ public class PlayPanel extends JLayeredPane {
 						System.out.println("Draw");
 					}
 				}
-				fixShit(panel);
+				
 			}
 		};
 		
@@ -138,13 +138,6 @@ public class PlayPanel extends JLayeredPane {
 		this.add(seventhColButton);
 		this.setVisible(true);
 	}
-	public void fixShit(BoardPanel panel){
-		this.panel.removeAll();
-		this.panel=panel;
-		this.panel.revalidate();
-		this.revalidate();
-		frame.repaint();
-		frame.setVisible(true);
-	}
+	
 		
 }
