@@ -39,17 +39,7 @@ public class SettingsPanel extends JLayeredPane {
 		backgroundImage.setBounds(0, 0, 500, 500);
 		this.add(backgroundImage, JLayeredPane.DEFAULT_LAYER);
 		//Adds button to start game
-		JButton playButton=new JButton("Play!");
-		playButton.setBounds(400,440,90,50);
-		playButton.setOpaque(true);
-		playButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//Calls main frame to change to a game board, then disposes of current frame
-				frame.changeContentPane(new PlayPanel(frame));
-				top.dispose();
-			}
-		});
+		
 		//Default values of settings 
 		frame.setRed(false);
 		frame.setAIDifficulty(0);
@@ -64,14 +54,22 @@ public class SettingsPanel extends JLayeredPane {
 		red.setBounds(285, 75, 100,100);
 		red.setOpaque(false);
 		
+		JLabel arrow=new JLabel("");
+		arrow.setVerticalAlignment(SwingConstants.TOP);
+		arrow.setIcon(new ImageIcon("arrow (2).png"));
+		arrow.setBounds(90,115,55,55);
+		
+		
 		//Changes the player color in the main frame based on user choice
 		ActionListener colorAction=new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("yellow")){
 					frame.setRed(false);
+					arrow.setBounds(90,115,55,55);
 				}
 				else if(e.getActionCommand().equals("red")){
 					frame.setRed(true);
+					arrow.setBounds(245,115,55,55);
 				}
 			}
 		};
@@ -105,6 +103,8 @@ public class SettingsPanel extends JLayeredPane {
 					frame.setAIDifficulty(2);
 					System.out.println("Hard");
 				}
+				frame.changeContentPane(new PlayPanel(frame));
+				top.dispose();
 			}
 		};
 		easy.addActionListener(diffAction);
@@ -116,7 +116,7 @@ public class SettingsPanel extends JLayeredPane {
 		this.add(easy, JLayeredPane.DEFAULT_LAYER);
 		this.add(medium, JLayeredPane.DEFAULT_LAYER);
 		this.add(hard, JLayeredPane.DEFAULT_LAYER);
-		this.add(playButton, JLayeredPane.PALETTE_LAYER);
+		this.add(arrow, JLayeredPane.PALETTE_LAYER);
 		this.setVisible(true);
 	}
 }

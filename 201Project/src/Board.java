@@ -17,7 +17,8 @@ public class Board {
 	public boolean addPiece(Piece p){
 		//uses boolean return to make sure placement was valid, should be but I want to be sure
 		boolean placed=false;
-		if(p!=null && bottomRow[p.getY()]<6){
+		this.updateBottomRow();
+		if(p!=null && bottomRow[p.getX()]<6){
 			//Get desired position of piece
 			int x=p.getX();
 			int y=p.getY();
