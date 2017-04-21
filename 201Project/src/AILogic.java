@@ -21,37 +21,43 @@ public class AILogic {
 	}
 
 	public Piece makeAMove(Board grid) {
+		//create rng for difficulty settings
 		Random r = new Random();
 		double actualRNG = r.nextDouble();
-		final double easyC = .4, mediumC = .7, hardC = .9;
+		final double easyC = .4, mediumC = .7, hardC = .98;
+		//create the fake piece that will be returned. 
 		Piece p = new Piece(0, 0, false);
+		//get the board so the AI can be aware of what is around it. 
 		Piece[][] allPieces = grid.getBoard();
+		//get the coordinates of all the possible moves. 
 		int possX[] = grid.getBottomRows();
-		// this checks for invalid moves.
+		// this checks to make sure the limit of the row is not exceeded.
 		for (int x = 0; x < 6; x++) {
 			if (allPieces[x]!=null &&
 					allPieces[x].length == 6) {
 				possX[x] = -1;
 			}
 		}
+		//create all the hypothetical moves that are allowable on the board.
 		Piece[] possibleMoves = new Piece[7];
-		System.out.println(Arrays.toString(possX));
 		for (int x = 0; x <7; x++) {
-			if (possX[x] != -1) {
+			if (possX[x] != -1 && possX[x]<6) {
 				possibleMoves[x] = new Piece(x, possX[x], false);
 			} else {
 				possibleMoves[x] = null;
 			}
 		}
-		int[] tempAr=possX;
-		for (int x=0; x<tempAr.length; x++){
-			tempAr[x]--;
-		}
+		//now order the moves in the correct order so that the AI knows which is best. 
 		Piece bestMoves[] = orderBestMoves(possibleMoves, allPieces);
 		if (diff == AIDifficulties.EASY) {
 			if (bestMoves.length > 1) {
 				if (actualRNG < easyC) {
-					p = bestMoves[0];
+					if(!(p.getPres()==5 || p.getPres()==10)){
+						p = bestMoves[0];
+					}
+					else{
+						p=bestMoves[(int) (r.nextDouble()*bestMoves.length)];
+					}
 				} else {
 					p = bestMoves[1];
 				}
@@ -61,7 +67,12 @@ public class AILogic {
 		} else if (diff == AIDifficulties.MEDIUM) {
 			if (bestMoves.length > 1) {
 				if (actualRNG < mediumC) {
-					p = bestMoves[0];
+					if(!(p.getPres()==5 || p.getPres()==10)){
+						p = bestMoves[0];
+					}
+					else{
+						p=bestMoves[(int) (r.nextDouble()*bestMoves.length)];
+					}
 				} else {
 					p = bestMoves[1];
 				}
@@ -71,7 +82,12 @@ public class AILogic {
 		} else if (diff == AIDifficulties.HARD) {
 			if (bestMoves.length > 1) {
 				if (actualRNG < hardC) {
-					p = bestMoves[0];
+					if(!(p.getPres()==5 || p.getPres()==10)){
+						p = bestMoves[0];
+					}
+					else{
+						p=bestMoves[(int) (r.nextDouble()*bestMoves.length)];
+					}
 				} else {
 					p = bestMoves[1];
 				}
@@ -86,6 +102,7 @@ public class AILogic {
 	}
 
 	private Piece[] orderBestMoves(Piece[] possibleMoves, Piece[][] wholeBoard) {
+		//create a new dummy array to later sort.
 		Piece[] bestMoves = new Piece[possibleMoves.length];
 		int[] pres = new int[bestMoves.length];
 		for (int x = 0; x < bestMoves.length; x++) {
@@ -97,12 +114,12 @@ public class AILogic {
 				pres[x] = 3;
 			} else if (candidateBlock(possibleMoves[x], wholeBoard)) {
 				pres[x] = 4;
-			} else // nothing
+			} else // nothing found 
 			{
 				pres[x] = 5;
 			}
 		}
-		for(int x=0; x<bestMoves.length; x++){//There's still an issue here, but it seems to be a logic error
+		for(int x=0; x<bestMoves.length; x++){
 			bestMoves[x]=possibleMoves[x];
 			bestMoves[x].pres=pres[x];
 		}
@@ -149,10 +166,16 @@ public class AILogic {
 			// check right
 			// check up
 			// check down
-			for (int x = p.getY(); x >= 0 && !broke; x--) {
-				if (wholeBoard[x][p.getX()]!=null&&!wholeBoard[x][p.getX()].isPlayerPiece()) {
-					temp++;
-				} else {
+			for (int x = p.getY(); x > 0 && !broke; x--) {
+				if (x>0){
+					if (wholeBoard[x-1][p.getX()]!=null&&
+							!wholeBoard[x-1][p.getX()].isPlayerPiece()) {
+						temp++;
+					} else {
+						broke = true;
+					}
+				}
+				else {
 					broke = true;
 				}
 			}
@@ -160,7 +183,8 @@ public class AILogic {
 			broke = false;
 			temp=0;
 			for (int x = p.getY(); x <= 6 && !broke; x++) {
-				if (wholeBoard[x][p.getX()]!=null&&!wholeBoard[x][p.getX()].isPlayerPiece()) {
+				if (wholeBoard[x][p.getX()]!=null&&
+						!wholeBoard[x][p.getX()].isPlayerPiece()) {
 					temp++;
 				} else {
 					broke = true;
@@ -170,32 +194,56 @@ public class AILogic {
 			broke = false;
 			temp=0;
 			for (int y = p.getX(); y <= 5 && !broke; y++) {
-				if (wholeBoard[p.getY()][y]!=null&&
-						!wholeBoard[p.getY()][y].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
+				if (y<6){
+					if (wholeBoard[p.getY()][y+1]!=null&&
+							!wholeBoard[p.getY()][y+1].isPlayerPiece()) {
+						temp++;
+					} else {
+						broke = true;
+					}
+				}
+				else{
+					broke=true;
 				}
 			}
 			lengths[2] = temp;
 			broke = false;
 			temp=0;
-			for (int y = p.getX(); y >= 5 && !broke; y--) {
-				if (wholeBoard[p.getY()][y]!=null&&!wholeBoard[p.getY()][y].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
+			for (int y = p.getX(); y >= 0 && !broke; y--) {
+				if (y>0){
+					if (wholeBoard[p.getY()][y-1]!=null&&
+							!wholeBoard[p.getY()][y-1].isPlayerPiece()) {
+						temp++;
+					} else {
+						broke = true;
+					}
 				}
+				else{
+					broke=true;
+				}
+
 			}
 			lengths[3] = temp;
 			broke = false;
 			temp=0;
 		} else {
-			if (p==null){
-				Error e=new Error();
-				e.printStackTrace();
+			for (int x = p.getY(); x > 0 && !broke; x--) {
+				if (x>0){
+					if (wholeBoard[x-1][p.getX()]!=null&&
+							wholeBoard[x-1][p.getX()].isPlayerPiece()) {
+						temp++;
+					} else {
+						broke = true;
+					}
+				}
+				else {
+					broke = true;
+				}
 			}
-			for (int x = p.getY(); x >= 0 && !broke; x--) {
+			lengths[0] = temp;
+			broke = false;
+			temp=0;
+			for (int x = p.getY(); x <= 6 && !broke; x++) {
 				if (wholeBoard[x][p.getX()]!=null&&
 						wholeBoard[x][p.getX()].isPlayerPiece()) {
 					temp++;
@@ -203,35 +251,38 @@ public class AILogic {
 					broke = true;
 				}
 			}
-			lengths[0] = temp;
-			broke = false;
-			temp=0;
-			for (int x = p.getY(); x <= 6 && !broke; x++) {
-				if (wholeBoard[x][p.getX()]!=null&&wholeBoard[x][p.getX()].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
-				}
-			}
 			lengths[1] = temp;
 			broke = false;
 			temp=0;
 			for (int y = p.getX(); y <= 5 && !broke; y++) {
-				if (wholeBoard[p.getY()][y]!=null&&wholeBoard[p.getY()][y].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
+				if (y<6){
+					if (wholeBoard[p.getY()][y+1]!=null&&
+							wholeBoard[p.getY()][y+1].isPlayerPiece()) {
+						temp++;
+					} else {
+						broke = true;
+					}
+				}
+				else{
+					broke=true;
 				}
 			}
 			lengths[2] = temp;
 			broke = false;
 			temp=0;
-			for (int y = p.getX(); y >= 6 && !broke; y--) {
-				if (wholeBoard[p.getY()][y]!=null&&wholeBoard[p.getY()][y].isPlayerPiece()) {
-					temp++;
-				} else {
-					broke = true;
+			for (int y = p.getX(); y >= 0 && !broke; y--) {
+				if (y>0){
+					if (wholeBoard[p.getY()][y-1]!=null&&
+							wholeBoard[p.getY()][y-1].isPlayerPiece()) {
+						temp++;
+					} else {
+						broke = true;
+					}
 				}
+				else{
+					broke=true;
+				}
+
 			}
 			lengths[3] = temp;
 			broke = false;

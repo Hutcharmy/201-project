@@ -40,6 +40,9 @@ public class Piece implements Comparable<Piece>{
 	public String toString(){
 		return x+"  "+y;
 	}
+	public int getPres(){
+		return pres;
+	}
 
 	
 	
