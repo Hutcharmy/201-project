@@ -56,20 +56,48 @@ public class PlayPanel extends JLayeredPane {
 		logic= new GameLogic(AI);
 		playerScore=Score.getScore(AIDifficulty, true);
 		AIScore=Score.getScore(AIDifficulty, false);
-		//Prints scores for current difficulty
-		JLabel printPlayerScore = new JLabel(Integer.toString(playerScore));
-		printPlayerScore.setBounds(308, 16, 75, 75);
-		printPlayerScore.setFont(new Font("Serif", Font.BOLD, 70));
-		printPlayerScore.setForeground(Color.BLACK);
-		//printPlayerScore.setOpaque(true);
-		this.add(printPlayerScore, JLayeredPane.DRAG_LAYER);
 		
-		JLabel printAIScore = new JLabel(Integer.toString(AIScore));
-		printAIScore.setBounds(713, 16, 75, 75);
-		printAIScore.setFont(new Font("Serif", Font.BOLD, 70));
-		printAIScore.setForeground(Color.BLACK);
-		this.add(printAIScore, JLayeredPane.DRAG_LAYER);
-		
+		//Print out player score with images of nums
+				if(Integer.toString(playerScore).length() == 1){
+					JLabel printPlayerScore = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(playerScore) + ".png"));
+					printPlayerScore.setBounds(295, 20, 75, 75);
+					//printPlayerScore.setOpaque(true);
+					this.add(printPlayerScore, JLayeredPane.DRAG_LAYER);
+				}
+				else if(Integer.toString(playerScore).length() == 2){
+					JLabel printPlayerScore = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(playerScore).charAt(0) + ".png"));
+					printPlayerScore.setBounds(285, 20, 75, 75);
+					//printPlayerScore.setOpaque(true);
+					this.add(printPlayerScore, JLayeredPane.DRAG_LAYER);
+					
+					JLabel printPlayerScore2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(playerScore).charAt(1) + ".png"));
+					printPlayerScore2.setBounds(322, 20, 75, 75);
+					//printPlayerScore.setOpaque(true);
+					this.add(printPlayerScore2, JLayeredPane.DRAG_LAYER);
+				}
+				else System.err.println("given player score not the correct length!");
+			
+				//Print out AI score with images of nums
+				if(Integer.toString(AIScore).length() == 1){
+					JLabel printAIScore = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(AIScore) + ".png"));
+					printAIScore.setBounds(700, 20, 75, 75);
+					//printPlayerScore.setOpaque(true);
+					this.add(printAIScore, JLayeredPane.DRAG_LAYER);
+				}
+				else if(Integer.toString(AIScore).length() == 2){
+					JLabel printAIScore = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(AIScore).charAt(0) + ".png"));
+					printAIScore.setBounds(691, 20, 75, 75);
+					//printPlayerScore.setOpaque(true);
+					this.add(printAIScore, JLayeredPane.DRAG_LAYER);
+					
+					JLabel printAIScore2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(AIScore).charAt(1) + ".png"));
+					printAIScore2.setBounds(728, 20, 75, 75);
+					//printPlayerScore.setOpaque(true);
+					this.add(printAIScore2, JLayeredPane.DRAG_LAYER);
+				}
+				else System.err.println("given AI score not the correct length!");
+				
+				
 		JButton backButton=new JButton("");
 		backButton.setBounds(300,720,200,61);
 		backButton.setOpaque(false);

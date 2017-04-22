@@ -26,62 +26,122 @@ public class ScorePanel extends JLayeredPane {
 		
 		int[] scoreArray = Score.scoreArray();
 		
-		JLabel easyWins = new JLabel(Integer.toString(scoreArray[0]));
-		easyWins.setBounds(200, 410, 75, 75);
-		easyWins.setFont(new Font("Serif", Font.BOLD, 70));
-		easyWins.setForeground(Color.BLACK);
-		//printPlayerScore.setOpaque(true);
-		this.add(easyWins, JLayeredPane.DRAG_LAYER);
+		//Easy printout -------------------------------------------------------------
+		if(Integer.toString(scoreArray[0]).length() == 1){
+			JLabel printEasyWins = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[0]) + ".png"));
+			printEasyWins.setBounds(190, 430, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyWins, JLayeredPane.DRAG_LAYER);
+		}
+		else if(Integer.toString(scoreArray[0]).length() == 2){
+			JLabel printEasyWins = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[0]).charAt(0) + ".png"));
+			printEasyWins.setBounds(170, 430, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyWins, JLayeredPane.DRAG_LAYER);
+			
+			JLabel printEasyWins2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[0]).charAt(1) + ".png"));
+			printEasyWins2.setBounds(205, 430, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyWins2, JLayeredPane.DRAG_LAYER);
+		}
+		else System.err.println("given player score not the correct length!");
 		
-		JLabel easyLosses = new JLabel(Integer.toString(scoreArray[1]));
-		easyLosses.setBounds(530, 410, 75, 75);
-		easyLosses.setFont(new Font("Serif", Font.BOLD, 70));
-		easyLosses.setForeground(Color.BLACK);
-		this.add(easyLosses, JLayeredPane.DRAG_LAYER);
+		if(Integer.toString(scoreArray[1]).length() == 1){
+			JLabel printEasyLosses = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[1]) + ".png"));
+			printEasyLosses.setBounds(520, 430, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses, JLayeredPane.DRAG_LAYER);
+		}
+		else if(Integer.toString(scoreArray[0]).length() == 2){
+			JLabel printEasyLosses = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[1]).charAt(0) + ".png"));
+			printEasyLosses.setBounds(505, 430, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses, JLayeredPane.DRAG_LAYER);
+			
+			JLabel printEasyLosses2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[1]).charAt(1) + ".png"));
+			printEasyLosses2.setBounds(540, 430, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses2, JLayeredPane.DRAG_LAYER);
+		}
+		else System.err.println("given player score not the correct length!");
 		
-		JLabel medWins = new JLabel(Integer.toString(scoreArray[2]));
-		medWins.setBounds(200, 480, 75, 75);
-		medWins.setFont(new Font("Serif", Font.BOLD, 70));
-		medWins.setForeground(Color.BLACK);
-		//printPlayerScore.setOpaque(true);
-		this.add(medWins, JLayeredPane.DRAG_LAYER);
+		//Medium printout -------------------------------------------------------------
+		if(Integer.toString(scoreArray[2]).length() == 1){
+			JLabel printMedWins = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[2]) + ".png"));
+			printMedWins.setBounds(190, 505, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printMedWins, JLayeredPane.DRAG_LAYER);
+		}
+		else if(Integer.toString(scoreArray[2]).length() == 2){
+			JLabel printMedWins = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[2]).charAt(0) + ".png"));
+			printMedWins.setBounds(170, 505, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printMedWins, JLayeredPane.DRAG_LAYER);
+			
+			JLabel printMedWins2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[2]).charAt(1) + ".png"));
+			printMedWins2.setBounds(205, 505, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printMedWins2, JLayeredPane.DRAG_LAYER);
+		}
+		else System.err.println("given player score not the correct length!");
 		
-		JLabel medLosses = new JLabel(Integer.toString(scoreArray[3]));
-		medLosses.setBounds(530, 480, 75, 75);
-		medLosses.setFont(new Font("Serif", Font.BOLD, 70));
-		medLosses.setForeground(Color.BLACK);
-		this.add(medLosses, JLayeredPane.DRAG_LAYER);
+		if(Integer.toString(scoreArray[3]).length() == 1){
+			JLabel printEasyLosses = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[3]) + ".png"));
+			printEasyLosses.setBounds(520, 505, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses, JLayeredPane.DRAG_LAYER);
+		}
+		else if(Integer.toString(scoreArray[3]).length() == 2){
+			JLabel printEasyLosses = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[3]).charAt(0) + ".png"));
+			printEasyLosses.setBounds(505, 505, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses, JLayeredPane.DRAG_LAYER);
+			
+			JLabel printEasyLosses2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[3]).charAt(1) + ".png"));
+			printEasyLosses2.setBounds(540, 505, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses2, JLayeredPane.DRAG_LAYER);
+		}
+		else System.err.println("given player score not the correct length!");
 		
-		JLabel hardWins = new JLabel(Integer.toString(scoreArray[4]));
-		hardWins.setBounds(200, 550, 75, 75);
-		hardWins.setFont(new Font("Serif", Font.BOLD, 70));
-		hardWins.setForeground(Color.BLACK);
-		//printPlayerScore.setOpaque(true);
-		this.add(hardWins, JLayeredPane.DRAG_LAYER);
+		//Hard printout -------------------------------------------------------------
+		if(Integer.toString(scoreArray[4]).length() == 1){
+			JLabel printHardWins = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[4]) + ".png"));
+			printHardWins.setBounds(190, 580, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printHardWins, JLayeredPane.DRAG_LAYER);
+		}
+		else if(Integer.toString(scoreArray[4]).length() == 2){
+			JLabel printHardWins = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[4]).charAt(0) + ".png"));
+			printHardWins.setBounds(170, 580, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printHardWins, JLayeredPane.DRAG_LAYER);
+			
+			JLabel printHardWins2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[4]).charAt(1) + ".png"));
+			printHardWins2.setBounds(205, 580, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printHardWins2, JLayeredPane.DRAG_LAYER);
+		}
+		else System.err.println("given player score not the correct length!");
 		
-		JLabel hardLosses = new JLabel(Integer.toString(scoreArray[5]));
-		hardLosses.setBounds(530, 550, 75, 75);
-		hardLosses.setFont(new Font("Serif", Font.BOLD, 70));
-		hardLosses.setForeground(Color.BLACK);
-		this.add(hardLosses, JLayeredPane.DRAG_LAYER);
-		
-		JLabel easy = new JLabel("E");
-		easy.setBounds(362, 406, 75, 75);
-		easy.setFont(new Font("Serif", Font.BOLD, 70));
-		easy.setForeground(Color.BLACK);
-		this.add(easy, JLayeredPane.DRAG_LAYER);
-		
-		JLabel medium = new JLabel("M");
-		medium.setBounds(351, 480, 75, 75);
-		medium.setFont(new Font("Serif", Font.BOLD, 70));
-		medium.setForeground(Color.BLACK);
-		this.add(medium, JLayeredPane.DRAG_LAYER);
-		
-		JLabel hard = new JLabel("H");
-		hard.setBounds(357, 550, 75, 75);
-		hard.setFont(new Font("Serif", Font.BOLD, 70));
-		hard.setForeground(Color.BLACK);
-		this.add(hard, JLayeredPane.DRAG_LAYER);
+		if(Integer.toString(scoreArray[5]).length() == 1){
+			JLabel printEasyLosses = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[5]) + ".png"));
+			printEasyLosses.setBounds(520, 580, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses, JLayeredPane.DRAG_LAYER);
+		}
+		else if(Integer.toString(scoreArray[5]).length() == 2){
+			JLabel printEasyLosses = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[5]).charAt(0) + ".png"));
+			printEasyLosses.setBounds(505, 580, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses, JLayeredPane.DRAG_LAYER);
+			
+			JLabel printEasyLosses2 = new JLabel(new ImageIcon("GUI_nums/" + Integer.toString(scoreArray[5]).charAt(1) + ".png"));
+			printEasyLosses2.setBounds(540, 580, 75, 75);
+			//printPlayerScore.setOpaque(true);
+			this.add(printEasyLosses2, JLayeredPane.DRAG_LAYER);
+		}
+		else System.err.println("given player score not the correct length!");
 		
 		JButton clearButton = new JButton("");
 		clearButton.setBounds(145,673,240,73);
