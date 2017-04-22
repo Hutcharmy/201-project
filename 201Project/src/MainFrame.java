@@ -7,6 +7,8 @@ public class MainFrame extends JFrame {
 	public JLayeredPane scoresPanel, aboutMenuPanel, playPanel, mainJPanel, settingsPanel;
 	private int AIDifficulty;
 	private boolean isRed;
+	static int wins;
+	static int losses;
 	public	MainFrame() {
 		Score.checkSaveFileExists();
 		playPanel=new PlayPanel(this);
@@ -19,25 +21,19 @@ public class MainFrame extends JFrame {
 		this.setResizable(false);
 	}
 	public void changeContentPane(JLayeredPane newPanel){
-		System.out.println(newPanel instanceof MainJPanel);
 		if (newPanel instanceof MainJPanel){
 			newPanel=new MainJPanel(this);
-			System.out.println("mainpanel");
 		}
 		
 		else if(newPanel instanceof ScorePanel){
 			newPanel=new ScorePanel(this);
-			System.out.println("score");
 		}
 		else if(newPanel instanceof PlayPanel){
 			newPanel=new PlayPanel(this);
-			System.out.println("playtime's over kiddo");
 		}
 		else if(newPanel instanceof AboutMenu){
 			newPanel=new AboutMenu(this);
-			System.out.println("aboot");
 		}
-		System.out.println("This ran");
 		this.getContentPane().removeAll();
 		this.setContentPane(newPanel);
 		newPanel.revalidate();

@@ -81,22 +81,22 @@ public class Score {
 			if(difficulty == i && isWin){
 				tempScore = readFromFile(counter);
 				// Check if score has reached MAX_SCORE
-				if(Integer.parseInt(tempScore) >= MAX_SCORE){
+				if(Integer.parseInt(tempScore,16) >= MAX_SCORE){
 					System.err.println("Max score reached!");
 					return;
 				}
-				writeNewScore(counter, Integer.parseInt(tempScore)+1);
+				writeNewScore(counter, Integer.parseInt(tempScore,16)+1);
 			}
 			counter++;
 			
 			if(difficulty == i && !isWin){
 				tempScore = readFromFile(counter);
 				// Check if score has reached MAX_SCORE
-				if(Integer.parseInt(tempScore) >= MAX_SCORE){
+				if(Integer.parseInt(tempScore,16) >= MAX_SCORE){
 					System.err.println("Max score reached!");
 					return;
 				}
-				writeNewScore(counter, Integer.parseInt(tempScore)+1);
+				writeNewScore(counter, Integer.parseInt(tempScore,16)+1);
 			}
 			counter++;
 		}
@@ -121,11 +121,11 @@ public class Score {
 		
 		for(int i = 0; i < NUM_OF_DIFFICULTY; i++){
 			if(difficulty == i && isWin){
-				toReturn = Integer.parseInt(readFromFile(counter));
+				toReturn = Integer.parseInt(readFromFile(counter),16);
 			}
 			counter++;
 			if(difficulty == i && !isWin){
-				toReturn = Integer.parseInt(readFromFile(counter));
+				toReturn = Integer.parseInt(readFromFile(counter),16);
 			}
 			counter++;
 		}
@@ -159,14 +159,14 @@ public class Score {
 		int[] scoreArray = new int[6];
 		
 		for(int i = 0; i <6; i++){
-			scoreArray[i] = Integer.parseInt(readFromFile(i));
+			scoreArray[i] = Integer.parseInt(readFromFile(i),16);
 		}
 		scoreArray[lineNumber] = newScore;
 		
 		try {
 			PrintWriter writer = new PrintWriter(SAVE_PATH);
 			for(int i = 0; i < 6; i++){
-				writer.println(scoreArray[i]);
+				writer.println(Integer.toHexString(scoreArray[i]));
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {

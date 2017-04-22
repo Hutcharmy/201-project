@@ -29,12 +29,10 @@ public class AboutMenu extends JLayeredPane {
 		backButton.setBounds(300,720,200,73);
 		backButton.setOpaque(false);
 		
-		System.out.println("We here");
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.changeContentPane(new MainJPanel(frame));
-				System.out.println("Shitty");
 			}
 		});
 		this.add(backButton);

@@ -93,15 +93,12 @@ public class SettingsPanel extends JLayeredPane {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("easy")){
 					frame.setAIDifficulty(0);
-					System.out.println("Easy");
 				}
 				else if(e.getActionCommand().equals("medium")){
 					frame.setAIDifficulty(1);
-					System.out.println("Medium");
 				}
 				else if(e.getActionCommand().equals("hard")){
 					frame.setAIDifficulty(2);
-					System.out.println("Hard");
 				}
 				frame.changeContentPane(new PlayPanel(frame));
 				top.dispose();

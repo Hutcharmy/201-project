@@ -1,11 +1,13 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -31,7 +33,6 @@ public class MainJPanel extends JLayeredPane {
 		public void actionPerformed(ActionEvent arg0) {
 			SettingsFrame frame2=new SettingsFrame(frame);
 			frame2.setVisible(true);
-			System.out.println("The button lives!");
 		}
 	});
 	playButton.setOpaque(false);
@@ -43,7 +44,22 @@ public class MainJPanel extends JLayeredPane {
 	exitButton.setOpaque(false);
 	exitButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			System.exit(0);
+			double wins=MainFrame.wins;
+			double losses=MainFrame.losses;
+			if(wins==0&&losses==0){
+				System.exit(0);
+			}
+			try{
+				double percentage=wins/(wins+losses);
+				NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+				defaultFormat.setMinimumFractionDigits(1);
+				int result=JOptionPane.showConfirmDialog(frame, "Your score percentage for this round was "
+													+defaultFormat.format(percentage), "Exit", JOptionPane.DEFAULT_OPTION);
+				if(result==0) System.exit(0);
+			}
+			catch(ArithmeticException e){
+				System.exit(0);
+			}
 		}
 	});
 	add(exitButton);
@@ -53,7 +69,6 @@ public class MainJPanel extends JLayeredPane {
 	aboutButton.setOpaque(false);
 	aboutButton.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent arg){
-			System.out.println("shit");
 			frame.changeContentPane(frame.aboutMenuPanel);
 		}
 	});

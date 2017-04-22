@@ -4,6 +4,7 @@ public class GameLogic {
 	private Board b;
 	private int win;
 	private AILogic currentAI;
+	
 	public GameLogic(AILogic a){
 		b=null;
 		win=-1;
@@ -22,7 +23,7 @@ public class GameLogic {
 		Piece p=null;
 		b.updateBottomRow();//Makes sure bottom rows are accurate
 		int[] bottom=b.getBottomRows();//Gets bottom rows
-		System.out.println(Arrays.toString(bottom));
+		//System.out.println(Arrays.toString(bottom));
 		//Check to see if piece can be placed in column, if it can creates piece at bottom of column
 		if(bottom[col]<6){ 
 			p=new Piece(col, bottom[col], true);
@@ -69,7 +70,7 @@ public class GameLogic {
 	 * @return win condition string, either "None", "draw", or "winner"
 	 */
 	private int checkWinCondition(Piece p, int streak, int[] direction){
-		System.out.println(streak +" is the streak");
+		//System.out.println(streak +" is the streak");
 		int currentWin;//Win condition at this point
 		//Initial condition
 		if(streak==1){
@@ -86,7 +87,7 @@ public class GameLogic {
 			//Dramatically low value to prevent false positives
 			if(drawFlag) return -100;
 			
-			System.out.println(p);
+			//System.out.println(p);
 			int[] currentMove={0,0};
 			int[][] moveConstants={{0,1},{0,-1},{1,1},{-1,-1},{1,-1},{-1,1},{-1,0}};//All 7 directions pieces could be in
 			for(int i=0;i<4;i++){//Horizontal, then both diagonals, then vertical, 1 direction then the other

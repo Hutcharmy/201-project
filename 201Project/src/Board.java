@@ -22,8 +22,8 @@ public class Board {
 			//Get desired position of piece
 			int x=p.getX();
 			int y=p.getY();
-			System.out.println("this is y "+y);
-			System.out.println("this is x "+x);
+			//System.out.println("this is y "+y);
+			//System.out.println("this is x "+x);
 			board[y][x]=p;//Adds piece to board
 			bottomRow[x]++;//Adds to bottom row tracker
 			//Sets trackers for last piece added for player and AI for purposes of adding graphics efficiently
@@ -71,7 +71,7 @@ public class Board {
 			for (int y=6; y>=0; y--){
 				if (board[x][y]!=null){
 					bottomRow[y]=x+1;
-					System.out.println(bottomRow[y]+"bot y for "+y);
+					//System.out.println(bottomRow[y]+"bot y for "+y);
 				}
 				if (bottomRow[y]<0){
 					bottomRow[y]=0;
