@@ -94,12 +94,12 @@ public class PlayPanel extends JLayeredPane {
 				JButton source=(JButton) e.getSource();
 				bo=logic.getMove(bo, Integer.parseInt(source.getText()));
 				
-				for(int j=5;j>=0;j--){
-					for(int i=0;i<7;i++){
-						System.out.print(bo.getPiece(i, j));
-					}
-					System.out.println("");
-				}
+//				for(int j=5;j>=0;j--){
+//					for(int i=0;i<7;i++){
+//						System.out.print(bo.getPiece(i, j));
+//					}
+//					System.out.println("");
+//				}
 				panel.addPiece(bo.getLastPlayerPiece());
 				String won=bo.getWin();
 				if(won.equals("Player Win")){

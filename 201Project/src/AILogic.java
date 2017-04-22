@@ -296,6 +296,7 @@ public class AILogic {
 				temps = lengths[x];
 			}
 		}
+		System.out.println(Arrays.toString(lengths));
 		return temps;
 	}
 }
