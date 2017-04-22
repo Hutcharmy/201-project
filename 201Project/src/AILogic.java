@@ -25,6 +25,7 @@ public class AILogic {
 		Random r = new Random();
 		double actualRNG = r.nextDouble();
 		final double easyC = .4, mediumC = .7, hardC = .98;
+		grid.updateBottomRow();
 		//create the fake piece that will be returned. 
 		Piece p = new Piece(0, 0, false);
 		//get the board so the AI can be aware of what is around it. 
@@ -52,7 +53,7 @@ public class AILogic {
 		if (diff == AIDifficulties.EASY) {
 			if (bestMoves.length > 1) {
 				if (actualRNG < easyC) {
-					if(!(p.getPres()==5 || p.getPres()==10)){
+					if(!(bestMoves[0].getPres()==5 || bestMoves[0].getPres()==10)){
 						p = bestMoves[0];
 					}
 					else{
@@ -67,7 +68,7 @@ public class AILogic {
 		} else if (diff == AIDifficulties.MEDIUM) {
 			if (bestMoves.length > 1) {
 				if (actualRNG < mediumC) {
-					if(!(p.getPres()==5 || p.getPres()==10)){
+					if(!(bestMoves[0].getPres()==5 || bestMoves[0].getPres()==10)){
 						p = bestMoves[0];
 					}
 					else{
@@ -82,7 +83,7 @@ public class AILogic {
 		} else if (diff == AIDifficulties.HARD) {
 			if (bestMoves.length > 1) {
 				if (actualRNG < hardC) {
-					if(!(p.getPres()==5 || p.getPres()==10)){
+					if(!(bestMoves[0].getPres()==5 || bestMoves[0].getPres()==10)){
 						p = bestMoves[0];
 					}
 					else{
@@ -103,25 +104,34 @@ public class AILogic {
 
 	private Piece[] orderBestMoves(Piece[] possibleMoves, Piece[][] wholeBoard) {
 		//create a new dummy array to later sort.
-		Piece[] bestMoves = new Piece[possibleMoves.length];
-		int[] pres = new int[bestMoves.length];
-		for (int x = 0; x < bestMoves.length; x++) {
-			if (possibleWin(possibleMoves[x], wholeBoard)) {
-				pres[x] = 1;
-			} else if (possibleBlock(possibleMoves[x], wholeBoard)) {
-				pres[x] = 2;
-			} else if (candidateWin(possibleMoves[x], wholeBoard)) {
-				pres[x] = 3;
-			} else if (candidateBlock(possibleMoves[x], wholeBoard)) {
-				pres[x] = 4;
-			} else // nothing found 
-			{
-				pres[x] = 5;
+		
+		int[] pres = new int[possibleMoves.length];
+		int lengthCounter=0;
+		for (int x = 0; x < possibleMoves.length; x++) {
+			if(possibleMoves[x]!=null){
+				if (possibleWin(possibleMoves[x], wholeBoard)) {
+					pres[x] = 1;
+				} else if (possibleBlock(possibleMoves[x], wholeBoard)) {
+					pres[x] = 2;
+				} else if (candidateWin(possibleMoves[x], wholeBoard)) {
+					pres[x] = 3;
+				} else if (candidateBlock(possibleMoves[x], wholeBoard)) {
+					pres[x] = 4;
+				} else // nothing found 
+				{
+					pres[x] = 5;
+				}
+				lengthCounter++;
 			}
 		}
-		for(int x=0; x<bestMoves.length; x++){
-			bestMoves[x]=possibleMoves[x];
-			bestMoves[x].pres=pres[x];
+		Piece[] bestMoves = new Piece[lengthCounter];
+		int indexOfMove=0;
+		for(int x=0; x<possibleMoves.length; x++){
+			if(possibleMoves[x]!=null){
+				bestMoves[indexOfMove]=possibleMoves[x];
+				bestMoves[indexOfMove].pres=pres[x];
+				indexOfMove++;
+			}
 		}
 		Arrays.sort(bestMoves);
 		return bestMoves;
