@@ -61,6 +61,7 @@ public class AILogic {
 							p = bestMoves[(int) (r.nextDouble() * bestMoves.length)];
 						}
 					} else {
+						System.out.println("Bad move");
 						p = bestMoves[1];
 						
 					}
@@ -80,19 +81,20 @@ public class AILogic {
 						}
 						if(p.getY()+1<6){
 							if(!possibleBlock(new Piece(p.getX(),p.getY()+1,false),allPieces)){
-								System.out.println("The user can't win if I do this");
+//								System.out.println("The user can't win if I do this");
 								placed=true;
 							}
 							else{
-								System.out.println("Nonono not today");
+//								System.out.println("Nonono not today");
 								bestMoves=Arrays.copyOfRange(bestMoves, 1, bestMoves.length);
 							}
 						}
 						else{
-							System.out.println("The user can't win if I do this");
+//							System.out.println("The user can't win if I do this");
 							placed=true;
 						}
 					} else {
+						System.out.println("Bad move");
 						p = bestMoves[1];
 						placed=true;
 					}
@@ -111,20 +113,20 @@ public class AILogic {
 						}
 						if(p.getY()+1<6){
 							if(!possibleBlock(new Piece(p.getX(),p.getY()+1,false),allPieces)){
-								System.out.println("The user can't win if I do this");
+//								System.out.println("The user can't win if I do this");
 								placed=true;
 							}
 							else{
-								System.out.println("Nonono not today");
+//								System.out.println("Nonono not today");
 								bestMoves=Arrays.copyOfRange(bestMoves, 1, bestMoves.length);
 							}
 						}
 						else{
-							System.out.println("The user can't win if I do this");
+//							System.out.println("The user can't win if I do this");
 							placed=true;
 						}
 					} else {
-						System.out.println("Shitty move");
+						System.out.println("Bad move");
 						p = bestMoves[1];
 						placed=true;
 					}
@@ -137,7 +139,7 @@ public class AILogic {
 			
 		}
 		if(p.getPres()==2||p.getPres()==4){
-			System.out.println("Blocking");
+//			System.out.println("Blocking");
 		}
 		// update bottom row of board
 		grid.updateBottomRow();
@@ -242,7 +244,6 @@ public class AILogic {
 			// System.out.println("Found wall vertical");
 			return false;
 		}
-
 		return true;
 	}
 
@@ -291,7 +292,7 @@ public class AILogic {
 			if (findWallRight(p, amt - temp))
 				lengths[2] = temp;
 			else
-				lengths[2] = temp;
+				lengths[2] = 0;
 			broke = false;
 			temp = 0;
 			for (int y = p.getX(); y >= 0 && !broke; y--) {
@@ -314,9 +315,9 @@ public class AILogic {
 			broke = false;
 			temp = 0;
 			for (int x = p.getX()-1, y = p.getY()-1; y >= 0 && !broke && x >= 0; y--, x--) {
-				if (y > 0 && x > 0 && wholeBoard[y][x]!=null &&
+				if (y >= 0 && x >= 0 && wholeBoard[y][x]!=null &&
 						!wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran");
+//					System.out.println("ran");
 					temp++;
 				} else {
 					broke = true;
@@ -326,9 +327,9 @@ public class AILogic {
 			temp=0;
 			broke =false;
 			for (int x = p.getX()+1, y = p.getY()-1; y >= 0 && !broke && x < 7; y--, x++) {
-				if (y > 0 && x < 7 && wholeBoard[y][x]!=null &&
+				if (y >= 0 && x < 7 && wholeBoard[y][x]!=null &&
 						!wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran2");
+//					System.out.println("ran2");
 					temp++;
 				} else {
 					broke = true;
@@ -340,7 +341,7 @@ public class AILogic {
 			for (int x = p.getX()+1, y = p.getY()+1; y < 7 && !broke && x < 7; y++, x++) {
 				if (y < 6 && x < 7  && wholeBoard[y][x]!=null &&
 						!wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran3");
+//					System.out.println("ran3");
 					temp++;
 				} else {
 					broke = true;
@@ -350,9 +351,9 @@ public class AILogic {
 			temp=0;
 			broke =false;
 			for (int x = p.getX()-1, y = p.getY()+1; y < 7 && !broke && x >= 0; y++, x--) {
-				if (y < 6 && x > 0 && wholeBoard[y][x]!=null &&
+				if (y < 6 && x >= 0 && wholeBoard[y][x]!=null &&
 						!wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran4");
+//					System.out.println("ran4");
 					temp++;
 				} else {
 					broke = true;
@@ -419,9 +420,9 @@ public class AILogic {
 			temp = 0;
 			lengths[1] = lengths[3] + lengths[2];
 			for (int x = p.getX()-1, y = p.getY()-1; y >= 0 && !broke && x >= 0; y--, x--) {
-				if (y > 0 && x > 0 && wholeBoard[y][x]!=null &&
+				if (y >= 0 && x >= 0 && wholeBoard[y][x]!=null &&
 						wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran");
+//					System.out.println("ran");
 					temp++;
 				} else {
 					broke = true;
@@ -431,9 +432,9 @@ public class AILogic {
 			temp=0;
 			broke =false;
 			for (int x = p.getX()+1, y = p.getY()-1; y >= 0 && !broke && x < 7; y--, x++) {
-				if (y > 0 && x < 7 && wholeBoard[y][x]!=null &&
+				if (y >= 0 && x < 7 && wholeBoard[y][x]!=null &&
 						wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran2");
+//					System.out.println("ran2");
 					temp++;
 				} else {
 					broke = true;
@@ -445,7 +446,7 @@ public class AILogic {
 			for (int x = p.getX()+1, y = p.getY()+1; y < 7 && !broke && x < 7; y++, x++) {
 				if (y < 6 && x < 7  && wholeBoard[y][x]!=null &&
 						wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran3");
+//					System.out.println("ran3");
 					temp++;
 				} else {
 					broke = true;
@@ -454,10 +455,10 @@ public class AILogic {
 			lengths[6]=temp;
 			temp=0;
 			broke =false;
-			for (int x = p.getX()-1, y = p.getY()+1; y < 7 && !broke && x >= 0; y++, x--) {
-				if (y < 6 && x > 0 && wholeBoard[y][x]!=null &&
+			for (int x = p.getX()-1, y = p.getY()+1; y < 6 && !broke && x >= 0; y++, x--) {
+				if (y < 6 && x >= 0 && wholeBoard[y][x]!=null &&
 						wholeBoard[y][x].isPlayerPiece()) {
-					System.out.println("ran4");
+//					System.out.println("ran4");
 					temp++;
 				} else {
 					broke = true;

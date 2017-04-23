@@ -16,7 +16,7 @@ public class EndgameFrame extends JFrame {
 		this.frame=frame;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(new WinPanel(win, this, frame));
-		setBounds(100, 100, 510, 550);
+		setBounds(950, 100, 510, 550);
 		this.setResizable(false);
 		this.setVisible(true);
 	}
