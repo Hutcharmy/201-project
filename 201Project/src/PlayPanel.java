@@ -21,7 +21,7 @@ public class PlayPanel extends JLayeredPane {
 	private GameLogic logic;
 	private boolean gameOver;
 	/**
-	 * Essentially handles all game graphics and routes functuality
+	 * Essentially handles all game graphics and routes functionality
 	 * @param frame the frame this panel is stored in
 	 */
 	public PlayPanel(MainFrame frame){
@@ -105,11 +105,8 @@ public class PlayPanel extends JLayeredPane {
 		
 		
 		//System.out.println("We here");
-		backButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.changeContentPane(new MainJPanel(frame));
-			}
+		backButton.addActionListener(e -> {
+			frame.changeContentPane(new MainJPanel(frame));
 		});
 		//Action listener for pieces
 		ActionListener colCheck=new ActionListener(){

@@ -23,7 +23,6 @@ public class GameLogic {
 		Piece p=null;
 		b.updateBottomRow();//Makes sure bottom rows are accurate
 		int[] bottom=b.getBottomRows();//Gets bottom rows
-		//System.out.println(Arrays.toString(bottom));
 		//Check to see if piece can be placed in column, if it can creates piece at bottom of column
 		if(bottom[col]<6){ 
 			p=new Piece(col, bottom[col], true);
@@ -87,7 +86,6 @@ public class GameLogic {
 			//Dramatically low value to prevent false positives
 			if(drawFlag) return -100;
 			
-			//System.out.println(p);
 			int[] currentMove={0,0};
 			int[][] moveConstants={{0,1},{0,-1},{1,1},{-1,-1},{1,-1},{-1,1},{-1,0}};//All 7 directions pieces could be in
 			for(int i=0;i<4;i++){//Horizontal, then both diagonals, then vertical, 1 direction then the other
@@ -98,7 +96,6 @@ public class GameLogic {
 				//Finds coordinates of next piece in current direction
 				int nextX=p.getX()+currentMove[1];
 				int nextY=p.getY()+currentMove[0];
-//				System.out.println("Moving to "+nextX+" , "+nextY);
 				//Checks for invalid poisitions
 				if(!(nextX<0||nextY<0||nextX>=7||nextY>=6)){
 					//Pulls next piece to be checked
@@ -114,12 +111,10 @@ public class GameLogic {
 				}
 				//In all cases but the last, moves in opposite direction
 				if(i!=3){
-//					System.out.println(currentWin+" after last move");
 					currentMove=moveConstants[i*2+1];
 					//Next position
 					nextX=p.getX()+currentMove[1];
 					nextY=p.getY()+currentMove[0];
-//					System.out.println("Moving to "+nextX+" , "+nextY);
 					//Checks invalid coordinates
 					if(!(nextX<0||nextY<0||nextX>=7||nextY>=6)){
 						//Gets next piece
@@ -144,11 +139,8 @@ public class GameLogic {
 		//All cases besides first and last
 		else{
 			currentWin=streak;//Sets win condition to amount of pieces visited
-//			System.out.println("We in here");
-//			System.out.println(p);
 			//Looks for null piece, should be nearly impossible
 			if(p==null){
-//				System.out.println("Hwhat");
 				return streak-1;
 			}
 			//Gets type and position of piece
@@ -160,17 +152,12 @@ public class GameLogic {
 			int nextY=y+direction[0];
 			//Checks for invalid coordinates
 			if(nextX<0||nextY<0||nextX>=7||nextY>=6){
-//				System.out.println("Hwhat the Sequel");
 				return streak;
 			}
 			//Gets next piece
 			Piece nextPiece=b.getPiece(nextX, nextY);
-//			System.out.println(nextPiece+" next piece");
-//			if(nextPiece!=null) System.out.println(nextPiece.getType());
-//			System.out.println(type);
 			//If piece is null or other type, skips, otherwise moves to next piece and continues
 			if(nextPiece!=null && nextPiece.getType().equals(type)){
-//				System.out.println("We made it");
 				//Moves to next step of program
 				currentWin=checkWinCondition(nextPiece, streak+1, direction);
 				//Checks for win
@@ -178,7 +165,6 @@ public class GameLogic {
 					return currentWin;
 				}
 				else{
-//					System.out.println(currentWin);
 					return currentWin;
 				}
 			}

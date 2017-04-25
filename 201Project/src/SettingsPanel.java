@@ -39,10 +39,7 @@ public class SettingsPanel extends JLayeredPane {
 		backgroundImage.setBounds(0, 0, 500, 500);
 		this.add(backgroundImage, JLayeredPane.DEFAULT_LAYER);
 		//Adds button to start game
-		
-		//Default values of settings 
-		frame.setRed(false);
-		frame.setAIDifficulty(0);
+
 		//Buttons for color choice, placed over icons in interface
 		JButton yellow=new JButton("");
 		yellow.setActionCommand("yellow");
@@ -57,7 +54,8 @@ public class SettingsPanel extends JLayeredPane {
 		JLabel arrow=new JLabel("");
 		arrow.setVerticalAlignment(SwingConstants.TOP);
 		arrow.setIcon(new ImageIcon("arrow (2).png"));
-		arrow.setBounds(90,115,55,55);
+		if(frame.isRed()) arrow.setBounds(245,115,55,55);
+		else arrow.setBounds(90,115,55,55);
 		
 		
 		//Changes the player color in the main frame based on user choice
